@@ -14,6 +14,7 @@ export interface Config {
     users: User;
     pages: Page;
     media: Media;
+    products: Product;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -50,6 +51,8 @@ export interface UserAuthOperations {
  */
 export interface User {
   id: number;
+  roles?: ('admin' | 'customer')[] | null;
+  favorites?: (number | Product)[] | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -60,6 +63,47 @@ export interface User {
   loginAttempts?: number | null;
   lockUntil?: string | null;
   password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products".
+ */
+export interface Product {
+  id: number;
+  title: string;
+  layout: {
+    invertBackground?: boolean | null;
+    position?: ('default' | 'fullscreen') | null;
+    media: number | Media;
+    id?: string | null;
+    blockName?: string | null;
+    blockType: 'mediaBlock';
+  }[];
+  publishedOn?: string | null;
+  relatedProducts?: (number | Product)[] | null;
+  slug?: string | null;
+  skipSync?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: number;
+  text?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -85,25 +129,6 @@ export interface Page {
   } | null;
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
- */
-export interface Media {
-  id: number;
-  text?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
