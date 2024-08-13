@@ -26,22 +26,6 @@ export const Products: CollectionConfig = {
       required: true,
     },
     {
-      type: 'tabs',
-      tabs: [
-        {
-          label: 'Content',
-          fields: [
-            {
-              name: 'layout',
-              type: 'blocks',
-              required: true,
-              blocks: [MediaBlock],
-            },
-          ],
-        },
-      ],
-    },
-    {
       name: 'publishedOn',
       type: 'date',
       admin: {

@@ -1,5 +1,6 @@
 import path from 'path'
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { seoPlugin } from '@payloadcms/plugin-seo'
 import { en } from 'payload/i18n/en'
 import {
   AlignFeature,
@@ -76,6 +77,12 @@ export default buildConfig({
   //   url: process.env.MONGODB_URI || '',
   // }),
 
+  plugins: [
+    seoPlugin({
+      collections: ['pages', 'products'],
+      uploadsCollection: 'media',
+    }),
+  ],
   /**
    * Payload can now accept specific translations from 'payload/i18n/en'
    * This is completely optional and will default to English if not provided

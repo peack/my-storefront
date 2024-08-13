@@ -71,18 +71,15 @@ export interface User {
 export interface Product {
   id: number;
   title: string;
-  layout: {
-    invertBackground?: boolean | null;
-    position?: ('default' | 'fullscreen') | null;
-    media: number | Media;
-    id?: string | null;
-    blockName?: string | null;
-    blockType: 'mediaBlock';
-  }[];
   publishedOn?: string | null;
   relatedProducts?: (number | Product)[] | null;
   slug?: string | null;
   skipSync?: boolean | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    image?: number | Media | null;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -127,6 +124,11 @@ export interface Page {
     };
     [k: string]: unknown;
   } | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    image?: number | Media | null;
+  };
   updatedAt: string;
   createdAt: string;
 }
