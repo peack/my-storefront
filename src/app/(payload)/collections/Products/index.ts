@@ -1,4 +1,4 @@
-import { CollectionConfig } from '@payload-types'
+import { CollectionConfig } from 'payload'
 import { admins } from '../../access'
 import { revalidateProduct } from './hooks/revalidateProduct'
 import { slugField } from '../../fields/slug'
@@ -75,7 +75,7 @@ export const Products: CollectionConfig = {
       type: 'relationship',
       relationTo: 'products',
       hasMany: true,
-      filterOptions: ({ id }: { id: number }) => {
+      filterOptions: ({ id }: { id: number | string }) => {
         return {
           id: {
             not_in: [id],

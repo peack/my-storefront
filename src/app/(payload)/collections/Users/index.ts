@@ -1,4 +1,4 @@
-import { CollectionConfig } from 'payload/types'
+import { CollectionConfig, PayloadRequest } from 'payload'
 import { User } from 'payload-types'
 import { admins, anyone } from '../../access'
 import adminsAndUser from '../../types/adminsAndUsers'
@@ -13,7 +13,10 @@ export const Users: CollectionConfig = {
     create: anyone,
     update: adminsAndUser,
     delete: admins,
-    admin: ({ req: { user } }: { req: { user: User } }) => checkRole(['admin'], user as User),
+    admin: ({ req }: { req: PayloadRequest }) => {
+      const user = req.user as User | null
+      return checkRole(['admin'], user as User)
+    },
   },
   fields: [
     {
