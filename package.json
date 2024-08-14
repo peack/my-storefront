@@ -26,6 +26,7 @@
     "@payloadcms/plugin-seo": "3.0.0-beta.76",
     "@payloadcms/richtext-lexical": "3.0.0-beta.76",
     "@payloadcms/richtext-slate": "3.0.0-beta.76",
+    "@payloadcms/storage-vercel-blob": "3.0.0-beta.29",
     "@payloadcms/translations": "3.0.0-beta.76",
     "@payloadcms/ui": "3.0.0-beta.76",
     "@radix-ui/react-navigation-menu": "^1.2.0",
