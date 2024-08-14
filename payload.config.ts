@@ -79,7 +79,7 @@ export default buildConfig({
       collections: {
         [Media.slug]: true,
       },
-      token: process.env.BLOB_READ_WRITE_TOKEN || '',
+      token: process.env.ecom_READ_WRITE_TOKEN || '',
     }),
   ],
   /**
