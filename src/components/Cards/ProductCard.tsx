@@ -19,9 +19,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
   toggleFavorite,
 }) => {
   const productMedia = (product.meta?.image as Media) || null
+  console.log(product.meta)
   //   const iconClass = isFavorite ? 'fill-yellow-400 text-yellow-400' : 'text-gray-400'
-  //   console.log(productMedia?.url)
-  //   const status = useAuth().status
+  // console.log(productMedia?.url)
+  // const status = useAuth().status
   return (
     <Card className="  w-[160px] md:w-[300px] m-1" key={product.slug}>
       <Link key={product.slug} href={`/products/${product.slug}`}>

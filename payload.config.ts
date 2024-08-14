@@ -1,6 +1,7 @@
 import path from 'path'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { seoPlugin } from '@payloadcms/plugin-seo'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { en } from 'payload/i18n/en'
 import {
   AlignFeature,
@@ -27,6 +28,7 @@ import sharp from 'sharp'
 import { fileURLToPath } from 'url'
 import { Products } from '@/app/(payload)/collections/Products'
 import { Users } from '@/app/(payload)/collections/Users'
+import { Media } from '@/app/(payload)/collections/Media'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -36,6 +38,7 @@ export default buildConfig({
   editor: lexicalEditor(),
   collections: [
     Users,
+    Media,
     {
       slug: 'pages',
       admin: {
@@ -49,16 +52,6 @@ export default buildConfig({
         {
           name: 'content',
           type: 'richText',
-        },
-      ],
-    },
-    {
-      slug: 'media',
-      upload: true,
-      fields: [
-        {
-          name: 'text',
-          type: 'text',
         },
       ],
     },
@@ -81,6 +74,12 @@ export default buildConfig({
     seoPlugin({
       collections: ['pages', 'products'],
       uploadsCollection: 'media',
+    }),
+    vercelBlobStorage({
+      collections: {
+        [Media.slug]: true,
+      },
+      token: process.env.BLOB_READ_WRITE_TOKEN || '',
     }),
   ],
   /**

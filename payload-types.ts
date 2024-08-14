@@ -12,8 +12,8 @@ export interface Config {
   };
   collections: {
     users: User;
-    pages: Page;
     media: Media;
+    pages: Page;
     products: Product;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -89,7 +89,7 @@ export interface Product {
  */
 export interface Media {
   id: number;
-  text?: string | null;
+  alt: string;
   updatedAt: string;
   createdAt: string;
   url?: string | null;

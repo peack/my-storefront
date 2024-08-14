@@ -8,6 +8,9 @@ import { ensureFirstUserIsAdmin } from './hooks/ensureFirstUserIsAdmin'
 export const Users: CollectionConfig = {
   slug: 'users',
   auth: true,
+  admin: {
+    useAsTitle: 'email',
+  },
   access: {
     read: adminsAndUser,
     create: anyone,

@@ -2,7 +2,6 @@ import { CollectionConfig } from 'payload'
 import { admins } from '../../access'
 import { revalidateProduct } from './hooks/revalidateProduct'
 import { slugField } from '../../fields/slug'
-import { MediaBlock } from '../../block/MediaBlock'
 
 export const Products: CollectionConfig = {
   slug: 'products',
