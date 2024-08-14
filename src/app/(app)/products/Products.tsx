@@ -11,7 +11,7 @@ export default function Products({ data }: ProductsProps) {
   return (
     <>
       <ul>
-        {data.docs.map((product) => (
+        {data.docs.map((product: Product) => (
           <ProductCard key={product.id} product={product} isFavorite={false} />
         ))}
       </ul>
