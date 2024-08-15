@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
-import { Card, CardContent, CardFooter, CardHeader } from '../ui/card'
+import React from 'react'
+import { Card, CardContent, CardHeader } from '../ui/card'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Media, Product } from '@payload-types'
+import { Media, Product } from '@/payload-types'
 // import { useAuth } from '@/_providers/Auth'
 // import { LoginAlert } from './Alerts/LoginAlert'
 

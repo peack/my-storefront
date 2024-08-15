@@ -1,6 +1,6 @@
 import ProductCard from '@/components/Cards/ProductCard'
+import { Product } from '@/payload-types'
 import { PaginatedDocs } from 'payload'
-import { Product } from 'payload-types'
 import React from 'react'
 
 interface ProductsProps {
