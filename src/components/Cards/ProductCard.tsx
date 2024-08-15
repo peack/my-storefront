@@ -31,7 +31,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
             alt="image "
             width={250}
             height={200}
-            layout="responsive"
             className="rounded-s-sm border "
           />
           <span className="font-bold">{product.title}</span>

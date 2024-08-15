@@ -13,7 +13,7 @@ type Args = {
 }
 
 const Layout = ({ children }: Args) => (
-  <RootLayout importMap={importMap} config={configPromise}>
+  <RootLayout config={configPromise} importMap={importMap}>
     {children}
   </RootLayout>
 )

@@ -22,46 +22,64 @@ import { Input } from '@/components/ui/input'
 import { useAuth } from '@/providers/Auth'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 
 const formSchema = z.object({
+  name: z.string().min(1, { message: 'Please enter your name.' }),
   email: z.string().email({
     message: 'Please enter a valid email address.',
   }),
-  password: z.string().min(4, {
-    message: 'Password must be at least 4 characters long.',
+  password: z.string().min(3, {
+    message: 'Password must be at least 8 characters long.',
   }),
 })
 
-export default function MyLogin() {
-  const router = useRouter()
+export default function SignUpForm() {
   const [error, setError] = useState('')
-  const { user, setUser, status, login } = useAuth()
+  const [formMessage, setFormMessage] = useState<null | string>(null)
+  const { user, setUser } = useAuth()
+  const router = useRouter()
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: '',
       password: '',
+      name: '',
     },
   })
 
-  useEffect(() => {
-    console.log(status)
-    if (status === 'loggedIn') {
-      router.push('/')
-    }
-  }, [user, status, router])
-  async function onSubmit(values: { email: string; password: string }) {
-    console.log(values)
+  async function onSubmit(values: { name?: string; email: string; password: string }) {
     try {
-      await login(values)
-      setTimeout(() => router.push('/'), 2500)
-    } catch (error) {
-      console.log(error)
-      setError('An error occurred while logging in. Please try again.')
+      const req = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
+      })
+
+      if (!req.ok) {
+        const errorData = await req.json()
+        throw new Error(errorData.message || `HTTP error! status: ${req.status}`)
+      }
+
+      const data = await req
+        .json()
+        .then((data) => setFormMessage(`${data.message}`))
+        .then(() => {
+          setTimeout(() => {
+            {
+              window.location.reload()
+            }
+          }, 3000)
+        })
+    } catch (err: any) {
+      console.log('error', err)
+      setError(err.message)
     }
   }
 
@@ -69,20 +87,33 @@ export default function MyLogin() {
     <div className="flex items-center justify-center h-100vh bg-gray-100">
       <Card className="w-[350px]">
         <CardHeader>
-          <CardTitle>Login</CardTitle>
-          <CardDescription>Enter your credentials to access your account.</CardDescription>
+          <CardTitle>SignUp</CardTitle>
+          <CardDescription>Enter your credentials create your account.</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Name</FormLabel>
+                    <FormControl>
+                      <Input type="text" placeholder="Enter your Name" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <FormField
                 control={form.control}
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel>Email </FormLabel>
                     <FormControl>
-                      <Input type="email" placeholder="Enter your email" {...field} />
+                      <Input type="email" placeholder={`Enter email.`} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -106,17 +137,18 @@ export default function MyLogin() {
                   <AlertDescription>{error}</AlertDescription>
                 </Alert>
               )}
+              {!error && formMessage && <Alert variant="default">{formMessage}</Alert>}
               <Button type="submit" className="w-full">
-                Login
+                Sign up
               </Button>
             </form>
           </Form>
         </CardContent>
         <CardFooter className="flex justify-center">
           <p className="text-sm text-gray-600">
-            {`Don't have an account?`}
-            <a href="/signup" className="text-blue-600 hover:underline">
-              Sign up
+            Already have an account?
+            <a href="/login" className="text-blue-600 hover:underline">
+              {` Login`}
             </a>
           </p>
         </CardFooter>

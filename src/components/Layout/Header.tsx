@@ -25,7 +25,7 @@ const Header: React.FC<HeaderProps> = ({ navLinks }) => {
               {navLinks.map((link) => (
                 <NavigationMenuItem key={link}>
                   <Link
-                    href={`/${link.toLowerCase() || ''}`}
+                    href={link === 'Home' ? '/' : `/${link.toLowerCase() || ''}`}
                     className={
                       navigationMenuTriggerStyle() + link === 'Admin' ? 'flex-row-reverse' : 'aa'
                     }

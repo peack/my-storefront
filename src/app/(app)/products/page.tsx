@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import { getPayloadHMR } from '@payloadcms/next/utilities'
 import configPromise from '@payload-config'
 import Products from './Products'
@@ -13,7 +13,9 @@ export default function page() {
   return (
     <div>
       <h1>Welcome to the product page</h1>
-      <Products data={data} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Products data={data} />
+      </Suspense>
     </div>
   )
 }
