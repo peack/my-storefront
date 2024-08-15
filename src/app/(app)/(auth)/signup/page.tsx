@@ -22,7 +22,7 @@ import { Input } from '@/components/ui/input'
 import { useAuth } from '@/providers/Auth'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 
@@ -39,7 +39,7 @@ const formSchema = z.object({
 export default function SignUpForm() {
   const [error, setError] = useState('')
   const [formMessage, setFormMessage] = useState<null | string>(null)
-  const { user, setUser } = useAuth()
+  const { login, user, setUser } = useAuth()
   const router = useRouter()
 
   const form = useForm({
@@ -51,9 +51,9 @@ export default function SignUpForm() {
     },
   })
 
-  async function onSubmit(values: { name?: string; email: string; password: string }) {
-    try {
-      const req = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users`, {
+  const onSubmit = useCallback(
+    async (values: { name: string; email: string; password: string }) => {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users`, {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -62,26 +62,29 @@ export default function SignUpForm() {
         body: JSON.stringify(values),
       })
 
-      if (!req.ok) {
-        const errorData = await req.json()
-        throw new Error(errorData.message || `HTTP error! status: ${req.status}`)
+      if (!res.ok) {
+        const message = res.statusText
+        setError('There was an error with the credentials provided. Please try again')
+        return
       }
 
-      const data = await req
-        .json()
-        .then((data) => setFormMessage(`${data.message}`))
-        .then(() => {
-          setTimeout(() => {
-            {
-              window.location.reload()
-            }
-          }, 3000)
-        })
-    } catch (err: any) {
-      console.log('error', err)
-      setError(err.message)
-    }
-  }
+      // ADD LOADING STATE
+      const timer = setTimeout(() => {
+        // setLoading(true)
+      }, 1000)
+
+      try {
+        await login({ email: values.email, password: values.password })
+        // clearTimeout(timer)
+        setTimeout(() => router.push('/'), 2000)
+        setFormMessage('Account created successfully.')
+      } catch (_) {
+        clearTimeout(timer)
+        setError('There was an error with the credentials provided. Please try again.')
+      }
+    },
+    [login, router],
+  )
 
   return (
     <div className="flex items-center justify-center h-100vh bg-gray-100">

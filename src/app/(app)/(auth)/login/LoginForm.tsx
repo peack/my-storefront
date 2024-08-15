@@ -38,7 +38,7 @@ const formSchema = z.object({
 export default function MyLogin() {
   const router = useRouter()
   const [error, setError] = useState('')
-  const { user, setUser, status, login } = useAuth()
+  const { user, status, login } = useAuth()
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -55,7 +55,6 @@ export default function MyLogin() {
     }
   }, [user, status, router])
   async function onSubmit(values: { email: string; password: string }) {
-    console.log(values)
     try {
       await login(values)
       setTimeout(() => router.push('/'), 2500)
