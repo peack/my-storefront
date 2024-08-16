@@ -52,6 +52,7 @@ export interface User {
   id: number;
   roles?: ('admin' | 'customer')[] | null;
   favorites?: (number | Product)[] | null;
+  name?: string | null;
   updatedAt: string;
   createdAt: string;
   email: string;

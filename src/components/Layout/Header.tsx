@@ -7,9 +7,9 @@ import {
   NavigationMenuItem,
   NavigationMenuList,
   navigationMenuTriggerStyle,
-} from '../ui/navigation-menu'
-// import { UserMenu } from './Header/UserMenu'
-
+} from '@/components/ui/navigation-menu'
+import dynamic from 'next/dynamic'
+import { UserMenu } from '@components/Header/UserMenu'
 interface HeaderProps {
   slug: string
   navLinks: string[]
@@ -37,8 +37,7 @@ const Header: React.FC<HeaderProps> = ({ navLinks }) => {
             </NavigationMenuList>
           </NavigationMenu>
           <div className="flex items-center">
-            {/* <UserMenu /> */}
-            USER MENU HERE
+            <UserMenu />
           </div>
         </div>
       </div>

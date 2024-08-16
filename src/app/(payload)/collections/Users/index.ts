@@ -52,5 +52,9 @@ export const Users: CollectionConfig = {
       relationTo: 'products',
       hasMany: true,
     },
+    {
+      name: 'name',
+      type: 'text',
+    },
   ],
 }

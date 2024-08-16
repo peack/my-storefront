@@ -1,8 +1,8 @@
 import path from 'path'
 import { seoPlugin } from '@payloadcms/plugin-seo'
-import { Products } from '@/app/(payload)/collections/Products'
-import { Users } from '@/app/(payload)/collections/Users'
-import { Media } from '@/app/(payload)/collections/Media'
+import { Products } from '@collections/Products'
+import { Media } from '@collections/Media'
+import { Users } from '@collections/Users'
 
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
