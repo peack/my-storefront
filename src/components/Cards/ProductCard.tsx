@@ -1,10 +1,11 @@
 import React from 'react'
-import { Card, CardContent, CardHeader } from '../ui/card'
+import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Media, Product } from '@/payload-types'
-// import { useAuth } from '@/_providers/Auth'
-// import { LoginAlert } from './Alerts/LoginAlert'
+import { LoginAlert } from '@components/Alerts/LoginAlert'
+import { useAuth } from '@/providers/Auth'
+import { StarIcon } from 'lucide-react'
 
 interface ProductCardProps {
   product: Product
@@ -19,9 +20,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
 }) => {
   const productMedia = (product.meta?.image as Media) || null
   console.log(product.meta)
-  //   const iconClass = isFavorite ? 'fill-yellow-400 text-yellow-400' : 'text-gray-400'
-  // console.log(productMedia?.url)
-  // const status = useAuth().status
+  const iconClass = isFavorite ? 'fill-yellow-400 text-yellow-400' : 'text-gray-400'
+  const status = useAuth().status
   return (
     <Card className="  w-[160px] md:w-[300px] m-1" key={product.slug}>
       <Link key={product.slug} href={`/products/${product.slug}`}>
@@ -39,15 +39,22 @@ const ProductCard: React.FC<ProductCardProps> = ({
       <CardContent>
         <p>{product.title}</p>
       </CardContent>
-      {/* <CardFooter className={'flex justify-end'}>
+      <CardFooter className={'flex justify-end'}>
         {status === 'loggedIn' ? (
-          <StarIcon className={iconClass} onClick={() => toggleFavorite(product, isFavorite)} />
+          <StarIcon
+            className={iconClass}
+            onClick={
+              toggleFavorite
+                ? () => toggleFavorite(product, isFavorite)
+                : () => console.log('error')
+            }
+          />
         ) : (
           <LoginAlert>
             <StarIcon className={iconClass} />
           </LoginAlert>
         )}
-      </CardFooter> */}
+      </CardFooter>
     </Card>
   )
 }

@@ -1,12 +1,14 @@
 import React, { Suspense } from 'react'
 import { getPayloadHMR } from '@payloadcms/next/utilities'
 import configPromise from '@payload-config'
-import Products from './Products'
+import dynamic from 'next/dynamic'
 const payload = await getPayloadHMR({ config: configPromise })
 
 const data = await payload.find({
   collection: 'products',
 })
+
+const Products = dynamic(() => import('./Products'), { ssr: false })
 
 export default function page() {
   console.log(data)

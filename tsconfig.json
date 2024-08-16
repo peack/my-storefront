@@ -21,7 +21,8 @@
       "@/*": ["./src/*", "./*"],
       "@components/*": ["./src/components/*"],
       "@payload-config": ["./payload.config.ts"],
-      "@collections/*": ["./src/app/(payload)/collections/*"]
+      "@collections/*": ["./src/app/(payload)/collections/*"],
+      "@hooks/*": ["./src/hooks/*"]
     },
     "target": "ES2017"
   },
