@@ -19,6 +19,7 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import Loading from '@/components/ui/Loading'
 import { useAuth } from '@/providers/Auth'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
@@ -37,8 +38,9 @@ const formSchema = z.object({
 
 export default function MyLogin() {
   const router = useRouter()
-  const [error, setError] = useState('')
+  const [error, setError] = useState<string | null>(null)
   const { user, status, login } = useAuth()
+  const [isLoading, setIsLoading] = useState(false)
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -55,12 +57,16 @@ export default function MyLogin() {
     }
   }, [user, status, router])
   async function onSubmit(values: { email: string; password: string }) {
+    setIsLoading(true)
+    setError(null)
     try {
       await login(values)
       setTimeout(() => router.push('/'), 2500)
+      setTimeout(() => setIsLoading(false), 1000)
     } catch (error) {
       console.log(error)
       setError('An error occurred while logging in. Please try again.')
+      setIsLoading(false)
     }
   }
 
@@ -101,13 +107,19 @@ export default function MyLogin() {
                 )}
               />
               {error && (
-                <Alert variant="destructive">
+                <Alert variant="destructive" className="animate-shake">
                   <AlertDescription>{error}</AlertDescription>
                 </Alert>
               )}
-              <Button type="submit" className="w-full">
-                Login
-              </Button>
+              {!isLoading ? (
+                <Button type="submit" className="w-full">
+                  Login
+                </Button>
+              ) : (
+                <Button type={undefined} disabled className="w-full">
+                  <Loading />
+                </Button>
+              )}
             </form>
           </Form>
         </CardContent>

@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { Suspense } from 'react'
 import Link from 'next/link'
 
 import {
@@ -36,9 +36,11 @@ const Header: React.FC<HeaderProps> = ({ navLinks }) => {
               ))}
             </NavigationMenuList>
           </NavigationMenu>
-          <div className="flex items-center">
-            <UserMenu />
-          </div>
+          <Suspense>
+            <div className="flex items-center">
+              <UserMenu />
+            </div>
+          </Suspense>
         </div>
       </div>
     </header>

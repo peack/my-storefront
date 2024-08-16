@@ -19,6 +19,7 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import Loading from '@/components/ui/Loading'
 import { useAuth } from '@/providers/Auth'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
@@ -37,8 +38,9 @@ const formSchema = z.object({
 })
 
 export default function SignUpForm() {
-  const [error, setError] = useState('')
+  const [error, setError] = useState<string | null>(null)
   const [formMessage, setFormMessage] = useState<null | string>(null)
+  const [isLoading, setIsLoading] = useState(false)
   const { login, user, setUser } = useAuth()
   const router = useRouter()
 
@@ -53,6 +55,8 @@ export default function SignUpForm() {
 
   const onSubmit = useCallback(
     async (values: { name: string; email: string; password: string }) => {
+      setIsLoading(true)
+      setError(null)
       const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/users`, {
         method: 'POST',
         credentials: 'include',
@@ -65,22 +69,24 @@ export default function SignUpForm() {
       if (!res.ok) {
         const message = res.statusText
         setError('There was an error with the credentials provided. Please try again')
+        setIsLoading(false)
         return
       }
 
-      // ADD LOADING STATE
-      const timer = setTimeout(() => {
-        // setLoading(true)
-      }, 1000)
+      // const timer = setTimeout(() => {
+
+      // }, 1000)
 
       try {
         await login({ email: values.email, password: values.password })
         // clearTimeout(timer)
+        setTimeout(() => setIsLoading(false), 500)
         setTimeout(() => router.push('/'), 2000)
         setFormMessage('Account created successfully.')
       } catch (_) {
-        clearTimeout(timer)
+        // clearTimeout(timer)
         setError('There was an error with the credentials provided. Please try again.')
+        setTimeout(() => setIsLoading(false), 500)
       }
     },
     [login, router],
@@ -136,14 +142,20 @@ export default function SignUpForm() {
                 )}
               />
               {error && (
-                <Alert variant="destructive">
+                <Alert variant="destructive" className="animate-shake">
                   <AlertDescription>{error}</AlertDescription>
                 </Alert>
               )}
               {!error && formMessage && <Alert variant="default">{formMessage}</Alert>}
-              <Button type="submit" className="w-full">
-                Sign up
-              </Button>
+              {isLoading ? (
+                <Button type="submit" disabled className="w-full">
+                  <Loading />
+                </Button>
+              ) : (
+                <Button type="submit" className="w-full">
+                  Sign up
+                </Button>
+              )}
             </form>
           </Form>
         </CardContent>

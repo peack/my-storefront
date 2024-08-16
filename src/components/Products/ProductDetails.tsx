@@ -1,6 +1,14 @@
 import { Media, Product } from '@/payload-types'
 import Image from 'next/image'
 import Link from 'next/link'
+import FlexibleCard from '@/components/Cards/FlexibleCard'
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+} from '@components/ui/carousel'
 
 interface ProductDetailsProps {
   product: Product
@@ -8,6 +16,7 @@ interface ProductDetailsProps {
 
 const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
   const productMedia = (product.meta?.image as Media) || null
+  const relatedProducts = product.relatedProducts || []
   return (
     <>
       <h1 className="font-bold text-3xl pb-5">{product.title}</h1>
@@ -31,45 +40,44 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         </h2>
         <p className="leading-7 [&:not(:first-child)]:mt-6">{product.meta?.description}</p>
       </div>
-
-      {/* <FlexibleCard title="Related Products">
-        {product.relatedProducts?.length > 4 ? (
-          <div className="flex container justify-center">
-            <Carousel opts={{ loop: true }}>
-              <CarouselContent>
-                {product.relatedProducts?.map((relatedProd) => {
-                  const product = relatedProd as Product
-                  const productMedia = (product.meta?.image as Media) || null
-                  return (
-                    <CarouselItem
-                      className="basis-1/3"
-                      key={typeof relatedProd === 'string' ? relatedProd : relatedProd.id}
-                    >
-                      <Link
-                        href={`/products/${
-                          typeof relatedProd === 'string' ? relatedProd : relatedProd.slug
-                        }`}
+      {relatedProducts?.length > 0 && (
+        <FlexibleCard title="Related Products">
+          {relatedProducts?.length > 4 ? (
+            <div className="flex container justify-center">
+              <Carousel opts={{ loop: true }}>
+                <CarouselContent>
+                  {product.relatedProducts?.map((relatedProd) => {
+                    const product = relatedProd as Product
+                    const productMedia = (product.meta?.image as Media) || null
+                    return (
+                      <CarouselItem
+                        className="basis-1/3"
+                        key={typeof product === 'string' ? product : product.id}
                       >
-                        <Image
-                          className="rounded-sm"
-                          width={150}
-                          height={150}
-                          src={productMedia.url ?? '/Image_NA.png'}
-                          alt={productMedia.alt ?? `Image of ${product.title}`}
-                        />
-                      </Link>
-                    </CarouselItem>
-                  )
-                })}
-              </CarouselContent>
-              <CarouselPrevious />
-              <CarouselNext />
-            </Carousel>
-          </div>
-        ) : (
-          <ProductDetailRelatedProductsRow product={product} />
-        )}
-      </FlexibleCard> */}
+                        <Link
+                          href={`/products/${typeof product === 'string' ? product : product.slug}`}
+                        >
+                          <Image
+                            className="rounded-sm"
+                            width={150}
+                            height={150}
+                            src={productMedia.url ?? '/Image_NA.png'}
+                            alt={productMedia.alt ?? `Image of ${product.title}`}
+                          />
+                        </Link>
+                      </CarouselItem>
+                    )
+                  })}
+                </CarouselContent>
+                <CarouselPrevious />
+                <CarouselNext />
+              </Carousel>
+            </div>
+          ) : (
+            <ProductDetailRelatedProductsRow product={product} />
+          )}
+        </FlexibleCard>
+      )}
     </>
   )
 }
