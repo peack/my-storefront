@@ -22,6 +22,7 @@ export function UserMenu() {
             <NavigationMenuContent>
               <ul className="grid gap-2  p-6 md:w-[120px] ]">
                 <HeaderListItem
+                  key={user?.id}
                   title={user?.name ? 'Profile' : 'Login'}
                   href={user ? '/profile' : '/login'}
                 />

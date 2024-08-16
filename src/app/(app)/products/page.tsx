@@ -14,7 +14,9 @@ export default function page() {
     <div>
       <h1>Welcome to the product page</h1>
       <Suspense fallback={<div>Loading...</div>}>
-        <Products data={data} />
+        <div className="flex flex-wrap justify-center md:justify-start mx-[-10px] sm:mx-0">
+          <Products data={data} />
+        </div>
       </Suspense>
     </div>
   )
