@@ -1,25 +1,12 @@
-import React, { Suspense } from 'react'
-import { getPayloadHMR } from '@payloadcms/next/utilities'
-import configPromise from '@payload-config'
-import dynamic from 'next/dynamic'
-const payload = await getPayloadHMR({ config: configPromise })
+import { cookies } from 'next/headers'
+import ProductDetailsSlug from './ProductDetailsSlug'
+import { Suspense } from 'react'
 
-export default async function Page({ params }: { params: { slug: string } }) {
-  const ProductDetails = dynamic(() => import('@/components/Products/ProductDetails'))
-  const data = await payload.find({
-    collection: 'products',
-    where: {
-      slug: {
-        equals: params.slug,
-      },
-    },
-  })
-
-  const product = data.docs[0] ?? null
-
+export default function Page({ params }: { params: { slug: string }; cookies: any }) {
+  const locale = cookies().get('payload-lng')?.value as 'en' | 'fr' | 'all' | undefined
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <ProductDetails key={product?.id} product={product} />
+    <Suspense>
+      <ProductDetailsSlug productSlug={params.slug} locale={locale} />
     </Suspense>
   )
 }

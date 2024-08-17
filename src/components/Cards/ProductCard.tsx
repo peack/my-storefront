@@ -19,7 +19,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
   toggleFavorite,
 }) => {
   const productMedia = (product.meta?.image as Media) || null
-  console.log(product.meta)
   const iconClass = isFavorite ? 'fill-yellow-400 text-yellow-400' : 'text-gray-400'
   const status = useAuth().status
   return (
@@ -27,18 +26,20 @@ const ProductCard: React.FC<ProductCardProps> = ({
       <Link key={product.slug} href={`/products/${product.slug}`}>
         <CardHeader className="flex items-center space-x-4  p-4">
           <Image
-            src={productMedia.url ?? '/Image_NA.png'}
+            src={productMedia?.url ?? '/Image_NA.png'}
             alt="image "
             width={250}
             height={200}
             className="rounded-s-sm border "
           />
-          <span className="font-bold">{product.title}</span>
+          <span className="font-bold">{product.meta?.title ?? product.title}</span>
         </CardHeader>
       </Link>
-      <CardContent>
-        <p>{product.title}</p>
-      </CardContent>
+      {product.meta?.description && (
+        <CardContent>
+          <p>{product.meta?.description}</p>
+        </CardContent>
+      )}
       <CardFooter className={'flex justify-end'}>
         {status === 'loggedIn' ? (
           <StarIcon

@@ -1,21 +1,21 @@
 type Query {
-  User(id: Int!, draft: Boolean): User
-  Users(draft: Boolean, where: User_where, limit: Int, page: Int, sort: String): Users
-  countUsers(draft: Boolean, where: User_where): countUsers
+  User(id: Int!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): User
+  Users(draft: Boolean, where: User_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, sort: String): Users
+  countUsers(draft: Boolean, where: User_where, locale: LocaleInputType): countUsers
   docAccessUser(id: Int!): usersDocAccess
   meUser: usersMe
   initializedUser: Boolean
-  Media(id: Int!, draft: Boolean): Media
-  allMedia(draft: Boolean, where: Media_where, limit: Int, page: Int, sort: String): allMedia
-  countallMedia(draft: Boolean, where: Media_where): countallMedia
+  Media(id: Int!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Media
+  allMedia(draft: Boolean, where: Media_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, sort: String): allMedia
+  countallMedia(draft: Boolean, where: Media_where, locale: LocaleInputType): countallMedia
   docAccessMedia(id: Int!): mediaDocAccess
-  Product(id: Int!, draft: Boolean): Product
-  Products(draft: Boolean, where: Product_where, limit: Int, page: Int, sort: String): Products
-  countProducts(draft: Boolean, where: Product_where): countProducts
+  Product(id: Int!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Product
+  Products(draft: Boolean, where: Product_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, sort: String): Products
+  countProducts(draft: Boolean, where: Product_where, locale: LocaleInputType): countProducts
   docAccessProduct(id: Int!): productsDocAccess
-  PayloadPreference(id: Int!, draft: Boolean): PayloadPreference
-  PayloadPreferences(draft: Boolean, where: PayloadPreference_where, limit: Int, page: Int, sort: String): PayloadPreferences
-  countPayloadPreferences(draft: Boolean, where: PayloadPreference_where): countPayloadPreferences
+  PayloadPreference(id: Int!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): PayloadPreference
+  PayloadPreferences(draft: Boolean, where: PayloadPreference_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, sort: String): PayloadPreferences
+  countPayloadPreferences(draft: Boolean, where: PayloadPreference_where, locale: LocaleInputType): countPayloadPreferences
   docAccessPayloadPreference(id: Int!): payload_preferencesDocAccess
   Access: Access
 }
@@ -23,7 +23,7 @@ type Query {
 type User {
   id: Int
   roles: [User_roles!]
-  favorites: [Product!]
+  favorites(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Product!]
   name: String
   updatedAt: DateTime
   createdAt: DateTime
@@ -46,7 +46,7 @@ type Product {
   id: Int
   title: String!
   publishedOn: DateTime
-  relatedProducts: [Product!]
+  relatedProducts(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): [Product!]
   slug: String
   skipSync: Boolean
   meta: Product_Meta
@@ -59,10 +59,21 @@ A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `dat
 """
 scalar DateTime
 
+enum LocaleInputType {
+  en
+  fr
+}
+
+enum FallbackLocaleInputType {
+  en
+  fr
+  none
+}
+
 type Product_Meta {
   title: String
   description: String
-  image(where: Product_Meta_Image_where): Media
+  image(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType, where: Product_Meta_Image_where): Media
 }
 
 type Media {
@@ -1628,7 +1639,7 @@ type ProductsDeleteDocAccess {
 
 type PayloadPreference {
   id: Int
-  user: PayloadPreference_User_Relationship!
+  user(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): PayloadPreference_User_Relationship!
   key: String
   value: JSON
   updatedAt: DateTime
@@ -2893,8 +2904,8 @@ type PayloadPreferencesDeleteAccess {
 }
 
 type Mutation {
-  createUser(data: mutationUserInput!, draft: Boolean): User
-  updateUser(id: Int!, autosave: Boolean, data: mutationUserUpdateInput!, draft: Boolean): User
+  createUser(data: mutationUserInput!, draft: Boolean, locale: LocaleInputType): User
+  updateUser(id: Int!, autosave: Boolean, data: mutationUserUpdateInput!, draft: Boolean, locale: LocaleInputType): User
   deleteUser(id: Int!): User
   refreshTokenUser: usersRefreshedUser
   logoutUser: String
@@ -2903,15 +2914,15 @@ type Mutation {
   forgotPasswordUser(disableEmail: Boolean, expiration: Int, email: String!): Boolean!
   resetPasswordUser(password: String, token: String): usersResetPassword
   verifyEmailUser(token: String): Boolean
-  createMedia(data: mutationMediaInput!, draft: Boolean): Media
-  updateMedia(id: Int!, autosave: Boolean, data: mutationMediaUpdateInput!, draft: Boolean): Media
+  createMedia(data: mutationMediaInput!, draft: Boolean, locale: LocaleInputType): Media
+  updateMedia(id: Int!, autosave: Boolean, data: mutationMediaUpdateInput!, draft: Boolean, locale: LocaleInputType): Media
   deleteMedia(id: Int!): Media
-  createProduct(data: mutationProductInput!, draft: Boolean): Product
-  updateProduct(id: Int!, autosave: Boolean, data: mutationProductUpdateInput!, draft: Boolean): Product
+  createProduct(data: mutationProductInput!, draft: Boolean, locale: LocaleInputType): Product
+  updateProduct(id: Int!, autosave: Boolean, data: mutationProductUpdateInput!, draft: Boolean, locale: LocaleInputType): Product
   deleteProduct(id: Int!): Product
   duplicateProduct(id: Int!): Product
-  createPayloadPreference(data: mutationPayloadPreferenceInput!, draft: Boolean): PayloadPreference
-  updatePayloadPreference(id: Int!, autosave: Boolean, data: mutationPayloadPreferenceUpdateInput!, draft: Boolean): PayloadPreference
+  createPayloadPreference(data: mutationPayloadPreferenceInput!, draft: Boolean, locale: LocaleInputType): PayloadPreference
+  updatePayloadPreference(id: Int!, autosave: Boolean, data: mutationPayloadPreferenceUpdateInput!, draft: Boolean, locale: LocaleInputType): PayloadPreference
   deletePayloadPreference(id: Int!): PayloadPreference
   duplicatePayloadPreference(id: Int!): PayloadPreference
 }

@@ -8,7 +8,6 @@ export const HeaderListItem = React.forwardRef<
   React.ElementRef<'a'>,
   React.ComponentPropsWithoutRef<'a'>
 >(({ className, title, children, ...props }, ref) => {
-  // const linkRer: Url = new URL(props?.href as string) ?? ''
   return (
     <li>
       <NavigationMenuLink asChild>

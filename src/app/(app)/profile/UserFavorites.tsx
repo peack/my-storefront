@@ -68,14 +68,16 @@ function userFavoriteCard(favorite: Product) {
     <Card key={favorite.id} className="w-[100px] md:w-[120px]">
       <CardContent className="p[-10px]">
         <Link href={`/products/${favorite.slug}`}>
-          <Image
-            src={favoriteMedia.url ?? '/Image_NA.png'}
-            alt="image "
-            width={90}
-            height={70}
-            layout="responsive"
-            className="rounded-md "
-          />
+          {favoriteMedia && (
+            <Image
+              src={favoriteMedia.url ?? '/Image_NA.png'}
+              alt="image "
+              width={90}
+              height={70}
+              layout="responsive"
+              className="rounded-md "
+            />
+          )}
         </Link>
       </CardContent>
     </Card>

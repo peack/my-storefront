@@ -10,6 +10,8 @@ import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { buildConfig } from 'payload'
 import sharp from 'sharp'
 import { fileURLToPath } from 'url'
+import { en } from '@payloadcms/translations/languages/en'
+import { fr } from '@payloadcms/translations/languages/fr'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -17,6 +19,9 @@ const dirname = path.dirname(filename)
 export default buildConfig({
   admin: {
     user: Users.slug,
+  },
+  i18n: {
+    supportedLanguages: { en, fr },
   },
   collections: [Users, Media, Products],
   editor: lexicalEditor(),
@@ -42,4 +47,8 @@ export default buildConfig({
     }),
   ],
   sharp,
+  localization: {
+    defaultLocale: 'en',
+    locales: ['en', 'fr'],
+  },
 })

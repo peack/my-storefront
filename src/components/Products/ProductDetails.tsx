@@ -19,26 +19,32 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
   const relatedProducts = product.relatedProducts || []
   return (
     <>
-      <h1 className="font-bold text-3xl pb-5">{product.title}</h1>
+      <h1 className="font-bold text-3xl pb-5">{product.meta?.title ?? product.title}</h1>
       <div className="flex justify-center">
-        <Image
-          className="rounded-sm shadow-xl"
-          src={productMedia.url ?? '/Image_NA.png'}
-          width={500}
-          height={300}
-          sizes="60vw"
-          style={{
-            width: '60%',
-            height: 'auto',
-          }}
-          alt={productMedia.alt ?? `Image of ${product.title}`}
-        />
+        {productMedia && (
+          <Image
+            className="rounded-sm shadow-xl"
+            src={productMedia.url ?? '/Image_NA.png'}
+            width={500}
+            height={300}
+            sizes="60vw"
+            style={{
+              width: '60%',
+              height: 'auto',
+            }}
+            alt={productMedia.alt ?? `Image of ${product.title}`}
+          />
+        )}
       </div>
       <div className="my-10">
-        <h2 className="mt-10 scroll-m-20 border-b pb-2 text-2xl font-semibold tracking-tight transition-colors first:mt-0">
-          Description
-        </h2>
-        <p className="leading-7 [&:not(:first-child)]:mt-6">{product.meta?.description}</p>
+        {product.meta?.description && (
+          <>
+            <h2 className="mt-10 scroll-m-20 border-b pb-2 text-2xl font-semibold tracking-tight transition-colors first:mt-0">
+              Description
+            </h2>
+            <p className="leading-7 [&:not(:first-child)]:mt-6">{product.meta?.description}</p>
+          </>
+        )}
       </div>
       {relatedProducts?.length > 0 && (
         <FlexibleCard title="Related Products">

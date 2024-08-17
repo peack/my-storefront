@@ -2,16 +2,19 @@ import React, { Suspense } from 'react'
 import { getPayloadHMR } from '@payloadcms/next/utilities'
 import configPromise from '@payload-config'
 import dynamic from 'next/dynamic'
+import { cookies } from 'next/headers'
 const payload = await getPayloadHMR({ config: configPromise })
+
+const locale = cookies().get('payload-lng')?.value as 'en' | 'fr' | 'all' | undefined
 
 const data = await payload.find({
   collection: 'products',
+  locale: locale,
 })
 
 const Products = dynamic(() => import('./Products'), { ssr: false })
 
 export default function page() {
-  console.log(data)
   return (
     <div>
       <h1>Welcome to the product page</h1>

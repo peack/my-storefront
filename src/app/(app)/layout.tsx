@@ -2,21 +2,16 @@ import React from 'react'
 import './globals.scss'
 import { Inter } from 'next/font/google'
 import Header from '@/components/Layout/Header'
-import dynamic from 'next/dynamic'
 
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
 })
 
-// const providersLoader = () => import('@/providers/index')
-// const providers = dynamic(providersLoader, { ssr: false })
-
 import { Providers } from '@/providers'
 
-/* Our app sits here to not cause any conflicts with payload's root layout  */
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const navLinks = ['Home', 'Products', 'Admin']
+  const navLinks = ['Home', 'Products']
   return (
     <html>
       <body>
