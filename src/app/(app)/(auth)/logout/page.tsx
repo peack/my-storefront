@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Alert } from '@/components/ui/alert'
 import { useAuth } from '@/providers/Auth'
+import { toast } from '@/components/ui/use-toast'
 
 interface LogoutMessageProps {
   description: string
@@ -22,11 +23,10 @@ export default function LogoutPage() {
     const performLogout = async () => {
       try {
         await logout()
-        setMessage({
-          description: 'You have been successfully logged out.',
-          isError: false,
+        toast({
+          title: 'Logout Successful',
         })
-        setTimeout(() => router.push('/'), 2500)
+        setTimeout(() => router.push('/'), 1500)
       } catch (error) {
         setMessage({
           description: 'An error occurred while logging out. Please try again.',

@@ -18,9 +18,9 @@ import { Providers } from '@/providers'
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const navLinks = ['Home', 'Products', 'Admin']
   return (
-    <Providers>
-      <html>
-        <body>
+    <html>
+      <body>
+        <Providers>
           <div className="min-h-screen bg-gray-100">
             <Header slug="Home" navLinks={navLinks} />
             <main>
@@ -35,9 +35,9 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               </div>
             </footer>
           </div>
-        </body>
-      </html>
-    </Providers>
+        </Providers>
+      </body>
+    </html>
   )
 }
 

@@ -20,8 +20,10 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import Loading from '@/components/ui/Loading'
+import { toast } from '@/components/ui/use-toast'
 import { useAuth } from '@/providers/Auth'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { ToastProps, ToastTitleProps } from '@radix-ui/react-toast'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -60,9 +62,14 @@ export default function MyLogin() {
     setIsLoading(true)
     setError(null)
     try {
-      await login(values)
+      const myUser = await login(values)
       setTimeout(() => router.push('/'), 2500)
       setTimeout(() => setIsLoading(false), 1000)
+      toast({
+        title: 'Login Successful',
+        description: myUser ? `Welcome back ${myUser.name} !` : `Welcome back ${values.email}!`,
+        variant: 'default',
+      })
     } catch (error) {
       console.log(error)
       setError('An error occurred while logging in. Please try again.')

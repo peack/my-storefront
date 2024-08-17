@@ -20,6 +20,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import Loading from '@/components/ui/Loading'
+import { toast } from '@/components/ui/use-toast'
 import { useAuth } from '@/providers/Auth'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
@@ -73,18 +74,14 @@ export default function SignUpForm() {
         return
       }
 
-      // const timer = setTimeout(() => {
-
-      // }, 1000)
-
       try {
         await login({ email: values.email, password: values.password })
-        // clearTimeout(timer)
         setTimeout(() => setIsLoading(false), 500)
         setTimeout(() => router.push('/'), 2000)
-        setFormMessage('Account created successfully.')
+        toast({
+          title: 'Account created successfully',
+        })
       } catch (_) {
-        // clearTimeout(timer)
         setError('There was an error with the credentials provided. Please try again.')
         setTimeout(() => setIsLoading(false), 500)
       }
