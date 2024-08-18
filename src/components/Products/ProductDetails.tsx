@@ -21,20 +21,18 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
     <>
       <h1 className="font-bold text-3xl pb-5">{product.meta?.title ?? product.title}</h1>
       <div className="flex justify-center">
-        {productMedia && (
-          <Image
-            className="rounded-sm shadow-xl"
-            src={productMedia.url ?? '/Image_NA.png'}
-            width={500}
-            height={300}
-            sizes="60vw"
-            style={{
-              width: '60%',
-              height: 'auto',
-            }}
-            alt={productMedia.alt ?? `Image of ${product.title}`}
-          />
-        )}
+        <Image
+          className="rounded-sm shadow-xl"
+          src={productMedia?.url ?? '/Image_NA.png'}
+          width={500}
+          height={300}
+          sizes="60vw"
+          style={{
+            width: '60%',
+            height: 'auto',
+          }}
+          alt={productMedia?.alt ?? `Image of ${product.meta?.title ?? 'No image found'}`}
+        />
       </div>
       <div className="my-10">
         {product.meta?.description && (
