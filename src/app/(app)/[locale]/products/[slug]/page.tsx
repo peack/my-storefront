@@ -1,13 +1,13 @@
 import ProductDetailsSlug from './ProductDetailsSlug'
 import { Suspense } from 'react'
 
-const Page = ({ params }: { params: { slug: string } }) => {
-  const myLocale = 'en'
-  console.log(`params: ${JSON.stringify(params)}`)
-  console.log(`params.slug: ${params.slug}`)
+const Page = ({ params }: { params: { slug: string; locale: string } }) => {
   return (
     <Suspense>
-      <ProductDetailsSlug productSlug={params.slug} locale={myLocale as 'en' | 'fr'} />
+      <ProductDetailsSlug
+        productSlug={params.slug}
+        locale={(params.locale as 'en' | 'fr') ?? 'fr'}
+      />
     </Suspense>
   )
 }
