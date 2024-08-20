@@ -2,8 +2,16 @@ import { Badge } from '@/components/Badge'
 import { Background } from '@/components/Background'
 import Link from 'next/link'
 import React from 'react'
+import { unstable_setRequestLocale } from 'next-intl/server'
 
-const Page = () => {
+interface PageProps {
+  params: {
+    locale: string
+  }
+}
+const Page = ({ params: { locale } }: PageProps) => {
+  unstable_setRequestLocale(locale)
+
   return (
     <>
       <main>

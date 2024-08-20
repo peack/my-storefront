@@ -1,22 +1,27 @@
+import Header from '@/components/Layout/Header'
+import { locales } from '@/i18n'
+import { Providers } from '@/providers'
+import { NextIntlClientProvider } from 'next-intl'
+import { getMessages, unstable_setRequestLocale } from 'next-intl/server'
+import { Inter } from 'next/font/google'
 import React from 'react'
 import './globals.scss'
-import { Inter } from 'next/font/google'
-import Header from '@/components/Layout/Header'
-import { NextIntlClientProvider } from 'next-intl'
 
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
 })
 
-import { Providers } from '@/providers'
-import { getMessages } from 'next-intl/server'
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }))
+}
 
 const Layout: React.FC<{ children: React.ReactNode; params: { locale: string } }> = async ({
   children,
   params: { locale },
 }) => {
   const navLinks = ['Home', 'Products']
+  unstable_setRequestLocale(locale)
   const messages = await getMessages()
   return (
     <html lang={locale}>
