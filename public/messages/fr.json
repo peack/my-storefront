@@ -1,4 +1,8 @@
 {
+  "LocaleSwitcher": {
+    "localeSwitcher_english_label": "AN",
+    "localeSwitcher_french_label": "FR"
+  },
   "HomePage": {
     "title": "Bonjour le monde !"
   },

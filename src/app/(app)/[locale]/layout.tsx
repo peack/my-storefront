@@ -6,6 +6,7 @@ import { getMessages, unstable_setRequestLocale } from 'next-intl/server'
 import { Inter } from 'next/font/google'
 import React from 'react'
 import './globals.scss'
+import Footer from '@/components/Footer/Footer'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -36,9 +37,9 @@ const Layout: React.FC<{ children: React.ReactNode; params: { locale: string } }
                   <div className="px-4 py-6 sm:px-0">{children}</div>
                 </div>
               </main>
-              <footer className="bg-white">
-                <div className="max-w-6xl mx-auto py-4 px-4 sm:px-6 lg:px-8 justify-end flex">
-                  {/* Footer content */}
+              <footer>
+                <div className="max-w-6xl mx-auto py-4 px-4 sm:px-6 lg:px-8 justify-end flex shadow-sm">
+                  <Footer />
                 </div>
               </footer>
             </div>
