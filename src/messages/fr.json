@@ -1,0 +1,17 @@
+{
+  "HomePage": {
+    "title": "Bonjour le monde !"
+  },
+  "LoginPage": {
+    "login_form_card_header_title_label": "Connexion",
+    "login_form_card_header_description": "Entrez vos identifiants pour accéder à votre compte.",
+    "toast_success_message": "Connexion réussie",
+    "toast_success_description": "Bienvenue de retour ${user.name} !",
+    "login_form_email_placeholder": "Entrez votre email",
+    "login_form_password_placeholder": "Entrez votre mot de passe",
+    "login_form_button_label": "Se connecter",
+    "login_form_error": "Une erreur s'est produite lors de la connexion. Veuillez réessayer.",
+    "login_form_card_footer_link_description": "Vous n'avez pas de compte ?",
+    "login_form_card_footer_link_label": "Inscrivez-vous ici"
+  }
+}

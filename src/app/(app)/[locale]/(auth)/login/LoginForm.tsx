@@ -24,6 +24,7 @@ import { toast } from '@/components/ui/use-toast'
 import { useAuth } from '@/providers/Auth'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ToastProps, ToastTitleProps } from '@radix-ui/react-toast'
+import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -43,6 +44,7 @@ export default function MyLogin() {
   const [error, setError] = useState<string | null>(null)
   const { user, status, login } = useAuth()
   const [isLoading, setIsLoading] = useState(false)
+  const t = useTranslations('LoginPage')
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -81,8 +83,8 @@ export default function MyLogin() {
     <div className="flex items-center justify-center h-100vh bg-gray-100">
       <Card className="w-[350px]">
         <CardHeader>
-          <CardTitle>Login</CardTitle>
-          <CardDescription>Enter your credentials to access your account.</CardDescription>
+          <CardTitle>{t('login_form_card_header_title_label')}</CardTitle>
+          <CardDescription>{t('login_form_card_header_description')}</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -94,7 +96,11 @@ export default function MyLogin() {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input type="email" placeholder="Enter your email" {...field} />
+                      <Input
+                        type="email"
+                        placeholder={t('login_form_email_placeholder')}
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -107,7 +113,11 @@ export default function MyLogin() {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input type="password" placeholder="Enter your password" {...field} />
+                      <Input
+                        type="password"
+                        placeholder={t('login_form_password_placeholder')}
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -120,7 +130,7 @@ export default function MyLogin() {
               )}
               {!isLoading ? (
                 <Button type="submit" className="w-full">
-                  Login
+                  {t('login_form_button_label')}
                 </Button>
               ) : (
                 <Button type={undefined} disabled className="w-full">
@@ -132,9 +142,9 @@ export default function MyLogin() {
         </CardContent>
         <CardFooter className="flex justify-center">
           <p className="text-sm text-gray-600">
-            {`Don't have an account?`}
+            {t('login_form_card_footer_link_description')}
             <a href="/signup" className="text-blue-600 hover:underline">
-              Sign up
+              {t('login_form_card_footer_link_label')}
             </a>
           </p>
         </CardFooter>

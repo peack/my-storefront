@@ -19,6 +19,7 @@ export default async function ProductDetailsSlug({ productSlug, locale }: Produc
       },
     },
   })
+
   const product = data.docs[0] ?? null
 
   return <ProductDetails key={product?.id} product={product} />

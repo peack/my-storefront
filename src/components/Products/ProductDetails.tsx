@@ -15,11 +15,11 @@ interface ProductDetailsProps {
 }
 
 const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
-  const productMedia = (product.meta?.image as Media) || null
-  const relatedProducts = product.relatedProducts || []
+  const productMedia = (product?.meta?.image as Media) || null
+  const relatedProducts = product?.relatedProducts || []
   return (
     <>
-      <h1 className="font-bold text-3xl pb-5">{product.meta?.title ?? product.title}</h1>
+      <h1 className="font-bold text-3xl pb-5">{product?.meta?.title ?? product?.title ?? ''}</h1>
       <div className="flex justify-center">
         <Image
           className="rounded-sm shadow-xl"
@@ -31,16 +31,16 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
             width: '60%',
             height: 'auto',
           }}
-          alt={productMedia?.alt ?? `Image of ${product.meta?.title ?? 'No image found'}`}
+          alt={productMedia?.alt ?? `Image of ${product?.meta?.title ?? 'No image found'}`}
         />
       </div>
       <div className="my-10">
-        {product.meta?.description && (
+        {product?.meta?.description && (
           <>
             <h2 className="mt-10 scroll-m-20 border-b pb-2 text-2xl font-semibold tracking-tight transition-colors first:mt-0">
               Description
             </h2>
-            <p className="leading-7 [&:not(:first-child)]:mt-6">{product.meta?.description}</p>
+            <p className="leading-7 [&:not(:first-child)]:mt-6">{product?.meta?.description}</p>
           </>
         )}
       </div>
@@ -52,7 +52,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
                 <CarouselContent>
                   {product.relatedProducts?.map((relatedProd) => {
                     const product = relatedProd as Product
-                    const productMedia = (product.meta?.image as Media) || null
+                    const productMedia = (product?.meta?.image as Media) || null
                     return (
                       <CarouselItem
                         className="basis-1/3"
@@ -93,7 +93,7 @@ const ProductDetailRelatedProductsRow = ({ product }: { product: Product }) => {
     <div className="flex justify-start gap-1">
       {product.relatedProducts?.map((relatedProd) => {
         const product = relatedProd as Product
-        const productMedia = (product.meta?.image as Media) || null
+        const productMedia = (product?.meta?.image as Media) || null
         return (
           <Link
             href={`/products/${typeof product === 'string' ? product : product.slug}`}

@@ -18,7 +18,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   isFavorite = false,
   toggleFavorite,
 }) => {
-  const productMedia = (product.meta?.image as Media) || null
+  const productMedia = (product?.meta?.image as Media) || null
   const iconClass = isFavorite ? 'fill-yellow-400 text-yellow-400' : 'text-gray-400'
   const status = useAuth().status
   return (
@@ -32,12 +32,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
             height={200}
             className="rounded-s-sm border "
           />
-          <span className="font-bold">{product.meta?.title ?? product.title}</span>
+          <span className="font-bold">{product?.meta?.title ?? product.title}</span>
         </CardHeader>
       </Link>
-      {product.meta?.description && (
+      {product?.meta?.description && (
         <CardContent>
-          <p>{product.meta?.description}</p>
+          <p>{product?.meta?.description}</p>
         </CardContent>
       )}
       <CardFooter className={'flex justify-end'}>

@@ -1,0 +1,47 @@
+import React from 'react'
+import './globals.scss'
+import { Inter } from 'next/font/google'
+import Header from '@/components/Layout/Header'
+import { NextIntlClientProvider } from 'next-intl'
+
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+})
+
+import { Providers } from '@/providers'
+import { getMessages } from 'next-intl/server'
+
+const Layout: React.FC<{ children: React.ReactNode; params: { locale: string } }> = async ({
+  children,
+  params: { locale },
+}) => {
+  const navLinks = ['Home', 'Products']
+  const messages = await getMessages()
+  return (
+    <html lang={locale}>
+      <body>
+        <Providers>
+          <NextIntlClientProvider messages={messages}>
+            <div className="min-h-screen bg-gray-100">
+              <Header slug="Home" navLinks={navLinks} />
+              <main>
+                <div className="max-w-5xl mx-auto py-6 sm:px-6 lg:px-8">
+                  {/* Flexible content area */}
+                  <div className="px-4 py-6 sm:px-0">{children}</div>
+                </div>
+              </main>
+              <footer className="bg-white">
+                <div className="max-w-6xl mx-auto py-4 px-4 sm:px-6 lg:px-8 justify-end flex">
+                  {/* Footer content */}
+                </div>
+              </footer>
+            </div>
+          </NextIntlClientProvider>
+        </Providers>
+      </body>
+    </html>
+  )
+}
+
+export default Layout
