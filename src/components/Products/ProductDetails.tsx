@@ -65,8 +65,8 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
                             className="rounded-sm"
                             width={150}
                             height={150}
-                            src={productMedia.url ?? '/Image_NA.png'}
-                            alt={productMedia.alt ?? `Image of ${product.title}`}
+                            src={productMedia?.url ?? '/Image_NA.png'}
+                            alt={productMedia?.alt ?? `Image of ${product.title}`}
                           />
                         </Link>
                       </CarouselItem>
@@ -103,8 +103,8 @@ const ProductDetailRelatedProductsRow = ({ product }: { product: Product }) => {
               className="rounded-sm"
               width={150}
               height={150}
-              src={productMedia.url ?? '/Image_NA.png'}
-              alt={productMedia.alt ?? `Image of ${product.title}`}
+              src={productMedia?.url ?? '/Image_NA.png'}
+              alt={productMedia?.alt ?? `Image of ${product.title}`}
             />
           </Link>
         )

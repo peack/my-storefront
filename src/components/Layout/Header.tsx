@@ -17,13 +17,13 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ navLinks }) => {
   return (
-    <header className="bg-white shadow">
+    <header>
       <div className="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 ">
-        <div className="container mx-auto flex justify-between items-center">
+        <div className="container mx-auto flex justify-between items-center shadow bg-white  rounded-lg py-2">
           <NavigationMenu>
             <NavigationMenuList className="">
               {navLinks.map((link) => (
-                <NavigationMenuItem key={link}>
+                <NavigationMenuItem key={link} className={navigationMenuTriggerStyle()}>
                   <Link
                     href={link === 'Home' ? '/' : `/${link.toLowerCase() || ''}`}
                     className={

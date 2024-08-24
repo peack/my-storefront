@@ -1,6 +1,7 @@
 'use client'
 import { Button } from '@components/ui/button'
 import { useLocale, useTranslations } from 'next-intl'
+import { Separator } from '@components/ui/separator'
 
 export default function LocaleSwitcher() {
   const t = useTranslations('LocaleSwitcher')
@@ -12,7 +13,7 @@ export default function LocaleSwitcher() {
   const currentLocale = useLocale()
 
   return (
-    <div className="flex">
+    <div className="flex justify-end ">
       <Button
         variant={'link'}
         className={currentLocale === 'fr' ? 'font-bold' : ''}
@@ -22,6 +23,7 @@ export default function LocaleSwitcher() {
       >
         {t('localeSwitcher_french_label')}
       </Button>
+      <Separator orientation="vertical" />
       <Button
         variant={'link'}
         className={currentLocale === 'en' ? 'font-bold' : ''}

@@ -35,7 +35,7 @@ const Page = ({ params: { locale } }: PageProps) => {
           </p>
           <p>You can use the Local API in your server components like this:</p>
         </article>
-        <div className="codeBlock">
+        {/* <div className="codeBlock container">
           <pre>
             <code>
               {`import { getPayloadHMR } from '@payloadcms/next/utilities'
@@ -50,7 +50,7 @@ return <Posts data={data} />
 `}
             </code>
           </pre>
-        </div>
+        </div> */}
       </main>
       <Background />
     </>

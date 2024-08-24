@@ -38,7 +38,7 @@ const Layout: React.FC<{ children: React.ReactNode; params: { locale: string } }
                 </div>
               </main>
               <footer>
-                <div className="max-w-6xl mx-auto py-4 px-4 sm:px-6 lg:px-8 justify-end flex shadow-sm">
+                <div className=" mx-auto py-4 justify-end flex shadow-sm">
                   <Footer />
                 </div>
               </footer>
