@@ -29,14 +29,9 @@ const Layout: React.FC<{ children: React.ReactNode; params: { locale: string } }
       <body>
         <Providers>
           <NextIntlClientProvider messages={messages}>
-            <div className="min-h-screen bg-gray-100">
+            <div className="flex-col flex-grow space-between bg-gray-100 scrolling">
               <Header slug="Home" navLinks={navLinks} />
-              <main>
-                <div className="max-w-5xl mx-auto py-6 sm:px-6 lg:px-8">
-                  {/* Flexible content area */}
-                  <div className="px-4 py-6 sm:px-0">{children}</div>
-                </div>
-              </main>
+              <main>{children}</main>
               <footer>
                 <div className=" mx-auto py-4 justify-end flex shadow-sm">
                   <Footer />

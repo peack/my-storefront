@@ -1,5 +1,5 @@
 'use client'
-import React, { Suspense } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import Link from 'next/link'
 
 import {
@@ -8,7 +8,6 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
-import dynamic from 'next/dynamic'
 import { UserMenu } from '@components/Header/UserMenu'
 interface HeaderProps {
   slug: string
@@ -16,10 +15,35 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ navLinks }) => {
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  const handleScroll = () => {
+    if (window.scrollY > 60) {
+      setIsScrolled(true)
+    } else {
+      setIsScrolled(false)
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
   return (
-    <header>
-      <div className="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 ">
-        <div className="container mx-auto flex justify-between items-center shadow bg-white  rounded-lg py-2">
+    <header
+      className={`sticky top-0 z-40 backdrop-blur-[2px] ${
+        isScrolled ? 'py-4 px-4 max-w-4xl mx-auto md:max-w-screen ' : ''
+      } ease-in-out duration-500 `}
+    >
+      <div className="max-w-screens mx-auto">
+        <div
+          className={`container mx-auto flex justify-between items-center shadow bg-white py-2 ${
+            isScrolled ? 'max-w-4xl rounded-xl px-4 mx-4' : ''
+          } `}
+        >
           <NavigationMenu>
             <NavigationMenuList className="">
               {navLinks.map((link) => (
