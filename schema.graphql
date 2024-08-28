@@ -13,6 +13,10 @@ type Query {
   Products(draft: Boolean, where: Product_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, sort: String): Products
   countProducts(draft: Boolean, where: Product_where, locale: LocaleInputType): countProducts
   docAccessProduct(id: Int!): productsDocAccess
+  Search(id: Int!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): Search
+  Searches(draft: Boolean, where: Search_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, sort: String): Searches
+  countSearches(draft: Boolean, where: Search_where, locale: LocaleInputType): countSearches
+  docAccessSearch(id: Int!): searchDocAccess
   PayloadPreference(id: Int!, draft: Boolean, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType): PayloadPreference
   PayloadPreferences(draft: Boolean, where: PayloadPreference_where, fallbackLocale: FallbackLocaleInputType, locale: LocaleInputType, limit: Int, page: Int, sort: String): PayloadPreferences
   countPayloadPreferences(draft: Boolean, where: PayloadPreference_where, locale: LocaleInputType): countPayloadPreferences
@@ -73,7 +77,7 @@ enum FallbackLocaleInputType {
 type Product_Meta {
   title: String
   description: String
-  image(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType, where: Product_Meta_Image_where): Media
+  image(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Media
 }
 
 type Media {
@@ -90,197 +94,6 @@ type Media {
   height: Float
   focalX: Float
   focalY: Float
-}
-
-input Product_Meta_Image_where {
-  alt: Product_Meta_Image_alt_operator
-  updatedAt: Product_Meta_Image_updatedAt_operator
-  createdAt: Product_Meta_Image_createdAt_operator
-  url: Product_Meta_Image_url_operator
-  thumbnailURL: Product_Meta_Image_thumbnailURL_operator
-  filename: Product_Meta_Image_filename_operator
-  mimeType: Product_Meta_Image_mimeType_operator
-  filesize: Product_Meta_Image_filesize_operator
-  width: Product_Meta_Image_width_operator
-  height: Product_Meta_Image_height_operator
-  focalX: Product_Meta_Image_focalX_operator
-  focalY: Product_Meta_Image_focalY_operator
-  id: Product_Meta_Image_id_operator
-  AND: [Product_Meta_Image_where_and]
-  OR: [Product_Meta_Image_where_or]
-}
-
-input Product_Meta_Image_alt_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-}
-
-input Product_Meta_Image_updatedAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Product_Meta_Image_createdAt_operator {
-  equals: DateTime
-  not_equals: DateTime
-  greater_than_equal: DateTime
-  greater_than: DateTime
-  less_than_equal: DateTime
-  less_than: DateTime
-  like: DateTime
-  exists: Boolean
-}
-
-input Product_Meta_Image_url_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Product_Meta_Image_thumbnailURL_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Product_Meta_Image_filename_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Product_Meta_Image_mimeType_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Product_Meta_Image_filesize_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Product_Meta_Image_width_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Product_Meta_Image_height_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Product_Meta_Image_focalX_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Product_Meta_Image_focalY_operator {
-  equals: Float
-  not_equals: Float
-  greater_than_equal: Float
-  greater_than: Float
-  less_than_equal: Float
-  less_than: Float
-  exists: Boolean
-}
-
-input Product_Meta_Image_id_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
-  exists: Boolean
-}
-
-input Product_Meta_Image_where_and {
-  alt: Product_Meta_Image_alt_operator
-  updatedAt: Product_Meta_Image_updatedAt_operator
-  createdAt: Product_Meta_Image_createdAt_operator
-  url: Product_Meta_Image_url_operator
-  thumbnailURL: Product_Meta_Image_thumbnailURL_operator
-  filename: Product_Meta_Image_filename_operator
-  mimeType: Product_Meta_Image_mimeType_operator
-  filesize: Product_Meta_Image_filesize_operator
-  width: Product_Meta_Image_width_operator
-  height: Product_Meta_Image_height_operator
-  focalX: Product_Meta_Image_focalX_operator
-  focalY: Product_Meta_Image_focalY_operator
-  id: Product_Meta_Image_id_operator
-  AND: [Product_Meta_Image_where_and]
-  OR: [Product_Meta_Image_where_or]
-}
-
-input Product_Meta_Image_where_or {
-  alt: Product_Meta_Image_alt_operator
-  updatedAt: Product_Meta_Image_updatedAt_operator
-  createdAt: Product_Meta_Image_createdAt_operator
-  url: Product_Meta_Image_url_operator
-  thumbnailURL: Product_Meta_Image_thumbnailURL_operator
-  filename: Product_Meta_Image_filename_operator
-  mimeType: Product_Meta_Image_mimeType_operator
-  filesize: Product_Meta_Image_filesize_operator
-  width: Product_Meta_Image_width_operator
-  height: Product_Meta_Image_height_operator
-  focalX: Product_Meta_Image_focalX_operator
-  focalY: Product_Meta_Image_focalY_operator
-  id: Product_Meta_Image_id_operator
-  AND: [Product_Meta_Image_where_and]
-  OR: [Product_Meta_Image_where_or]
 }
 
 """
@@ -1265,8 +1078,11 @@ input Product_meta__description_operator {
 }
 
 input Product_meta__image_operator {
-  equals: String
-  not_equals: String
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
   exists: Boolean
 }
 
@@ -1637,6 +1453,329 @@ type ProductsDeleteDocAccess {
   where: JSONObject
 }
 
+type Search {
+  id: Int
+  title: String
+  priority: Float
+  doc(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Search_Doc_Relationship!
+  slug: String
+  updatedAt: DateTime
+  createdAt: DateTime
+}
+
+type Search_Doc_Relationship {
+  relationTo: Search_Doc_RelationTo
+  value: Search_Doc
+}
+
+enum Search_Doc_RelationTo {
+  products
+}
+
+union Search_Doc = Product
+
+type Searches {
+  docs: [Search]
+  hasNextPage: Boolean
+  hasPrevPage: Boolean
+  limit: Int
+  nextPage: Int
+  offset: Int
+  page: Int
+  pagingCounter: Int
+  prevPage: Int
+  totalDocs: Int
+  totalPages: Int
+}
+
+input Search_where {
+  title: Search_title_operator
+  priority: Search_priority_operator
+  doc: Search_doc_Relation
+  slug: Search_slug_operator
+  updatedAt: Search_updatedAt_operator
+  createdAt: Search_createdAt_operator
+  id: Search_id_operator
+  AND: [Search_where_and]
+  OR: [Search_where_or]
+}
+
+input Search_title_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Search_priority_operator {
+  equals: Float
+  not_equals: Float
+  greater_than_equal: Float
+  greater_than: Float
+  less_than_equal: Float
+  less_than: Float
+  exists: Boolean
+}
+
+input Search_doc_Relation {
+  relationTo: Search_doc_Relation_RelationTo
+  value: JSON
+}
+
+enum Search_doc_Relation_RelationTo {
+  products
+}
+
+input Search_slug_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Search_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Search_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Search_id_operator {
+  equals: Int
+  not_equals: Int
+  greater_than_equal: Int
+  greater_than: Int
+  less_than_equal: Int
+  less_than: Int
+  exists: Boolean
+}
+
+input Search_where_and {
+  title: Search_title_operator
+  priority: Search_priority_operator
+  doc: Search_doc_Relation
+  slug: Search_slug_operator
+  updatedAt: Search_updatedAt_operator
+  createdAt: Search_createdAt_operator
+  id: Search_id_operator
+  AND: [Search_where_and]
+  OR: [Search_where_or]
+}
+
+input Search_where_or {
+  title: Search_title_operator
+  priority: Search_priority_operator
+  doc: Search_doc_Relation
+  slug: Search_slug_operator
+  updatedAt: Search_updatedAt_operator
+  createdAt: Search_createdAt_operator
+  id: Search_id_operator
+  AND: [Search_where_and]
+  OR: [Search_where_or]
+}
+
+type countSearches {
+  totalDocs: Int
+}
+
+type searchDocAccess {
+  fields: SearchDocAccessFields
+  create: SearchCreateDocAccess
+  read: SearchReadDocAccess
+  update: SearchUpdateDocAccess
+  delete: SearchDeleteDocAccess
+}
+
+type SearchDocAccessFields {
+  title: SearchDocAccessFields_title
+  priority: SearchDocAccessFields_priority
+  doc: SearchDocAccessFields_doc
+  slug: SearchDocAccessFields_slug
+  updatedAt: SearchDocAccessFields_updatedAt
+  createdAt: SearchDocAccessFields_createdAt
+}
+
+type SearchDocAccessFields_title {
+  create: SearchDocAccessFields_title_Create
+  read: SearchDocAccessFields_title_Read
+  update: SearchDocAccessFields_title_Update
+  delete: SearchDocAccessFields_title_Delete
+}
+
+type SearchDocAccessFields_title_Create {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_title_Read {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_title_Update {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_title_Delete {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_priority {
+  create: SearchDocAccessFields_priority_Create
+  read: SearchDocAccessFields_priority_Read
+  update: SearchDocAccessFields_priority_Update
+  delete: SearchDocAccessFields_priority_Delete
+}
+
+type SearchDocAccessFields_priority_Create {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_priority_Read {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_priority_Update {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_priority_Delete {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_doc {
+  create: SearchDocAccessFields_doc_Create
+  read: SearchDocAccessFields_doc_Read
+  update: SearchDocAccessFields_doc_Update
+  delete: SearchDocAccessFields_doc_Delete
+}
+
+type SearchDocAccessFields_doc_Create {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_doc_Read {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_doc_Update {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_doc_Delete {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_slug {
+  create: SearchDocAccessFields_slug_Create
+  read: SearchDocAccessFields_slug_Read
+  update: SearchDocAccessFields_slug_Update
+  delete: SearchDocAccessFields_slug_Delete
+}
+
+type SearchDocAccessFields_slug_Create {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_slug_Read {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_slug_Update {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_slug_Delete {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_updatedAt {
+  create: SearchDocAccessFields_updatedAt_Create
+  read: SearchDocAccessFields_updatedAt_Read
+  update: SearchDocAccessFields_updatedAt_Update
+  delete: SearchDocAccessFields_updatedAt_Delete
+}
+
+type SearchDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_createdAt {
+  create: SearchDocAccessFields_createdAt_Create
+  read: SearchDocAccessFields_createdAt_Read
+  update: SearchDocAccessFields_createdAt_Update
+  delete: SearchDocAccessFields_createdAt_Delete
+}
+
+type SearchDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type SearchCreateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type SearchReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type SearchUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type SearchDeleteDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type PayloadPreference {
   id: Int
   user(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): PayloadPreference_User_Relationship!
@@ -1926,6 +2065,7 @@ type Access {
   users: usersAccess
   media: mediaAccess
   products: productsAccess
+  search: searchAccess
   payload_preferences: payload_preferencesAccess
 }
 
@@ -2752,6 +2892,181 @@ type ProductsDeleteAccess {
   where: JSONObject
 }
 
+type searchAccess {
+  fields: SearchFields
+  create: SearchCreateAccess
+  read: SearchReadAccess
+  update: SearchUpdateAccess
+  delete: SearchDeleteAccess
+}
+
+type SearchFields {
+  title: SearchFields_title
+  priority: SearchFields_priority
+  doc: SearchFields_doc
+  slug: SearchFields_slug
+  updatedAt: SearchFields_updatedAt
+  createdAt: SearchFields_createdAt
+}
+
+type SearchFields_title {
+  create: SearchFields_title_Create
+  read: SearchFields_title_Read
+  update: SearchFields_title_Update
+  delete: SearchFields_title_Delete
+}
+
+type SearchFields_title_Create {
+  permission: Boolean!
+}
+
+type SearchFields_title_Read {
+  permission: Boolean!
+}
+
+type SearchFields_title_Update {
+  permission: Boolean!
+}
+
+type SearchFields_title_Delete {
+  permission: Boolean!
+}
+
+type SearchFields_priority {
+  create: SearchFields_priority_Create
+  read: SearchFields_priority_Read
+  update: SearchFields_priority_Update
+  delete: SearchFields_priority_Delete
+}
+
+type SearchFields_priority_Create {
+  permission: Boolean!
+}
+
+type SearchFields_priority_Read {
+  permission: Boolean!
+}
+
+type SearchFields_priority_Update {
+  permission: Boolean!
+}
+
+type SearchFields_priority_Delete {
+  permission: Boolean!
+}
+
+type SearchFields_doc {
+  create: SearchFields_doc_Create
+  read: SearchFields_doc_Read
+  update: SearchFields_doc_Update
+  delete: SearchFields_doc_Delete
+}
+
+type SearchFields_doc_Create {
+  permission: Boolean!
+}
+
+type SearchFields_doc_Read {
+  permission: Boolean!
+}
+
+type SearchFields_doc_Update {
+  permission: Boolean!
+}
+
+type SearchFields_doc_Delete {
+  permission: Boolean!
+}
+
+type SearchFields_slug {
+  create: SearchFields_slug_Create
+  read: SearchFields_slug_Read
+  update: SearchFields_slug_Update
+  delete: SearchFields_slug_Delete
+}
+
+type SearchFields_slug_Create {
+  permission: Boolean!
+}
+
+type SearchFields_slug_Read {
+  permission: Boolean!
+}
+
+type SearchFields_slug_Update {
+  permission: Boolean!
+}
+
+type SearchFields_slug_Delete {
+  permission: Boolean!
+}
+
+type SearchFields_updatedAt {
+  create: SearchFields_updatedAt_Create
+  read: SearchFields_updatedAt_Read
+  update: SearchFields_updatedAt_Update
+  delete: SearchFields_updatedAt_Delete
+}
+
+type SearchFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type SearchFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type SearchFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type SearchFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type SearchFields_createdAt {
+  create: SearchFields_createdAt_Create
+  read: SearchFields_createdAt_Read
+  update: SearchFields_createdAt_Update
+  delete: SearchFields_createdAt_Delete
+}
+
+type SearchFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type SearchFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type SearchFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type SearchFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type SearchCreateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type SearchReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type SearchUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type SearchDeleteAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type payload_preferencesAccess {
   fields: PayloadPreferencesFields
   create: PayloadPreferencesCreateAccess
@@ -2921,6 +3236,10 @@ type Mutation {
   updateProduct(id: Int!, autosave: Boolean, data: mutationProductUpdateInput!, draft: Boolean, locale: LocaleInputType): Product
   deleteProduct(id: Int!): Product
   duplicateProduct(id: Int!): Product
+  createSearch(data: mutationSearchInput!, draft: Boolean, locale: LocaleInputType): Search
+  updateSearch(id: Int!, autosave: Boolean, data: mutationSearchUpdateInput!, draft: Boolean, locale: LocaleInputType): Search
+  deleteSearch(id: Int!): Search
+  duplicateSearch(id: Int!): Search
   createPayloadPreference(data: mutationPayloadPreferenceInput!, draft: Boolean, locale: LocaleInputType): PayloadPreference
   updatePayloadPreference(id: Int!, autosave: Boolean, data: mutationPayloadPreferenceUpdateInput!, draft: Boolean, locale: LocaleInputType): PayloadPreference
   deletePayloadPreference(id: Int!): PayloadPreference
@@ -3036,7 +3355,7 @@ input mutationProductInput {
 input mutationProduct_MetaInput {
   title: String
   description: String
-  image: String
+  image: Int
 }
 
 input mutationProductUpdateInput {
@@ -3053,7 +3372,43 @@ input mutationProductUpdateInput {
 input mutationProductUpdate_MetaInput {
   title: String
   description: String
-  image: String
+  image: Int
+}
+
+input mutationSearchInput {
+  title: String
+  priority: Float
+  doc: Search_DocRelationshipInput
+  slug: String
+  updatedAt: String
+  createdAt: String
+}
+
+input Search_DocRelationshipInput {
+  relationTo: Search_DocRelationshipInputRelationTo
+  value: JSON
+}
+
+enum Search_DocRelationshipInputRelationTo {
+  products
+}
+
+input mutationSearchUpdateInput {
+  title: String
+  priority: Float
+  doc: SearchUpdate_DocRelationshipInput
+  slug: String
+  updatedAt: String
+  createdAt: String
+}
+
+input SearchUpdate_DocRelationshipInput {
+  relationTo: SearchUpdate_DocRelationshipInputRelationTo
+  value: JSON
+}
+
+enum SearchUpdate_DocRelationshipInputRelationTo {
+  products
 }
 
 input mutationPayloadPreferenceInput {

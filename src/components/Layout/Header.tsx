@@ -36,11 +36,11 @@ const Header: React.FC<HeaderProps> = ({ navLinks }) => {
     <header
       className={`sticky top-0 z-40 backdrop-blur-[2px] ${
         isScrolled ? 'py-4 px-4 max-w-4xl mx-auto md:max-w-screen ' : ''
-      } ease-in-out duration-500 `}
+      } ease-in-out duration-1000 `}
     >
-      <div className="max-w-screens mx-auto">
+      <div className="max-w-screen mx-auto">
         <div
-          className={`container mx-auto flex justify-between items-center shadow bg-white py-2 ${
+          className={`container max-w-[100vw] mx-auto flex justify-between items-center shadow bg-white py-2 ${
             isScrolled ? 'max-w-4xl rounded-xl px-4 mx-4' : ''
           } `}
         >

@@ -3,7 +3,7 @@ import { seoPlugin } from '@payloadcms/plugin-seo'
 import { Products } from '@collections/Products'
 import { Media } from '@collections/Media'
 import { Users } from '@collections/Users'
-
+import { searchPlugin } from '@payloadcms/plugin-search'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
@@ -44,6 +44,28 @@ export default buildConfig({
         [Media.slug]: true,
       },
       token: process.env.READ_WRITE_TOKEN || '',
+    }),
+    searchPlugin({
+      collections: ['products'],
+      defaultPriorities: {
+        products: 10,
+      },
+      searchOverrides: {
+        slug: 'search',
+        fields: ({ defaultFields }) => [
+          ...defaultFields,
+          {
+            name: 'slug',
+            type: 'text',
+          },
+        ],
+      },
+      beforeSync: ({ originalDoc, searchDoc }) => {
+        return {
+          ...searchDoc,
+          slug: originalDoc.slug, // Add the product ID to the search document
+        }
+      },
     }),
   ],
   sharp,

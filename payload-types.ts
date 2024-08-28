@@ -14,6 +14,7 @@ export interface Config {
     users: User;
     media: Media;
     products: Product;
+    search: Search;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -78,7 +79,7 @@ export interface Product {
   meta?: {
     title?: string | null;
     description?: string | null;
-    image?: number | Media | null;
+    image?: (number | null) | Media;
   };
   updatedAt: string;
   createdAt: string;
@@ -101,6 +102,22 @@ export interface Media {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "search".
+ */
+export interface Search {
+  id: number;
+  title?: string | null;
+  priority?: number | null;
+  doc: {
+    relationTo: 'products';
+    value: number | Product;
+  };
+  slug?: string | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
