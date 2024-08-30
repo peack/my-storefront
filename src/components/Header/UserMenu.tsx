@@ -17,7 +17,7 @@ export function UserMenu() {
         <NavigationMenuList>
           <NavigationMenuItem key={user?.name}>
             <NavigationMenuTrigger>
-              {user ? user?.name ?? user.email : 'Login / Signup'}
+              {user ? user?.name ?? user.email : 'Login'}
             </NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid gap-2  p-6 md:w-[120px] ]">

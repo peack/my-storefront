@@ -26,10 +26,10 @@ const Layout: React.FC<{ children: React.ReactNode; params: { locale: string } }
   const messages = await getMessages()
   return (
     <html lang={locale}>
-      <body>
+      <body className="no-scrollbar">
         <Providers>
           <NextIntlClientProvider messages={messages}>
-            <div className="flex-col flex-grow space-between bg-gray-100 scrolling">
+            <div className="min-h-screen bg-gray-100">
               <Header slug="Home" navLinks={navLinks} />
               <main>{children}</main>
               <footer>
