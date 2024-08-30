@@ -23,5 +23,6 @@ export const config = {
     '/(en|fr)/products/:slug*',
     '/(en|fr)/products',
     '/(en|fr)/login',
+    '/favicon.ico',
   ],
 }
