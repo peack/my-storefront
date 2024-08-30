@@ -21,8 +21,8 @@ export const HeaderListItem = React.forwardRef<
           )}
           {...props}
         >
-          <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">{children}</p>
+          <div className="font-medium leading-none">{title}</div>
+          <p className="line-clamp-2 leading-snug text-muted-foreground">{children}</p>
         </Link>
       </NavigationMenuLink>
     </li>

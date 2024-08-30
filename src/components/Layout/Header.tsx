@@ -35,7 +35,7 @@ const Header: React.FC<HeaderProps> = ({ navLinks }) => {
 
   return (
     <header
-      className={`sticky top-0 z-40 backdrop-blur-[2px] ${
+      className={`sticky top-0 z-40 backdrop-blur-[2px]  ${
         isScrolled ? 'py-2 px-2 max-w-4xl mx-auto md:max-w-screen ' : ''
       } ease-in-out duration-700 `}
     >
