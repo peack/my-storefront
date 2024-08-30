@@ -1,7 +1,7 @@
 'use client'
 import React, { Suspense, useEffect, useState } from 'react'
 import Link from 'next/link'
-
+import ThreadLogo from '/public/icons/Thread_logo.svg'
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/navigation-menu'
 import { UserMenu } from '@components/Header/UserMenu'
 import ProductSearchWrapper from '@/components/Search/ProductSearchWrapper'
+import Image from 'next/image'
 interface HeaderProps {
   slug: string
   navLinks: string[]
@@ -47,6 +48,11 @@ const Header: React.FC<HeaderProps> = ({ navLinks }) => {
         >
           <NavigationMenu>
             <NavigationMenuList className="space-x-0">
+              <NavigationMenuItem className="p-0">
+                <Link href="/" className="">
+                  <Image src={'/icons/Thread_logo.svg'} alt="Thread" width={40} height={40} />
+                </Link>
+              </NavigationMenuItem>
               {navLinks.map((link) => (
                 <NavigationMenuItem key={link} className={navigationMenuTriggerStyle()}>
                   <Link
