@@ -1,6 +1,6 @@
-import ProductSearch from '@/components/Search/ProductSearch'
+import ProductSearchWrapper from '@/components/Search/ProductSearchWrapper'
 import React from 'react'
 
 export default function page() {
-  return <ProductSearch />
+  return <ProductSearchWrapper />
 }

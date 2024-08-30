@@ -9,7 +9,7 @@ import {
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
 import { UserMenu } from '@components/Header/UserMenu'
-import ProductSearch from '@/components/Search/ProductSearch'
+import ProductSearchWrapper from '@/components/Search/ProductSearchWrapper'
 interface HeaderProps {
   slug: string
   navLinks: string[]
@@ -64,7 +64,7 @@ const Header: React.FC<HeaderProps> = ({ navLinks }) => {
           <Suspense>
             <div className="flex items-center">
               {/* Search here */}
-              <ProductSearch />
+              <ProductSearchWrapper />
               <UserMenu />
             </div>
           </Suspense>
