@@ -118,23 +118,18 @@ const ProductSearch: React.FC<ProductSearchProps> = ({ handleModalToggle }: Prod
             {results.map((product) => {
               const productImage = (product?.meta?.image as Media) || null
               return (
-                <li key={product.id} className="mb-4 p-4 border rounded-md flex ">
-                  <div className="flex">
-                    <Link href={`/products/${product.slug}`} onClick={handleBlur}>
-                      <div className="">
-                        <Image
-                          src={productImage?.url ?? '/Image_NA.png'}
-                          alt={product?.title}
-                          width={80}
-                          height={80}
-                        />
-                      </div>
-                      <div className="">
-                        <h2 className="text-l font-bold">{product?.title}</h2>
-                      </div>
-                    </Link>
-                  </div>
-                </li>
+                <Link key={product.id} href={`/products/${product.slug}`} onClick={handleBlur}>
+                  <li className="flex flex-nowrap justify-stretch items-center border rounded-md min-w-screen my-2 h-[80px] hover:bg-slate-100">
+                    <Image
+                      src={productImage?.url ?? '/Image_NA.png'}
+                      alt={product?.title}
+                      width={75}
+                      height={75}
+                      className="rounded-sm p-2"
+                    />
+                    <h2 className="text-l font-bold">{product?.title}</h2>
+                  </li>
+                </Link>
               )
             })}
           </ul>
@@ -149,13 +144,15 @@ const ProductSearch: React.FC<ProductSearchProps> = ({ handleModalToggle }: Prod
         <div className="sticky top-0 bg-white w-full py-2 mt-0  ">
           <SearchBar />
           {results?.length > 0 && (
-            <h2 className="text-xl font-bold pt-2 p-2 mb-4">Search Results</h2>
+            <h2 className="text-xl font-bold pt-2 p-2 mb-2">
+              Search Results ({results?.length > 0 && results?.length})
+            </h2>
           )}
         </div>
         <SearchResults />
         {results?.length === 0 && !loading && searchMessage && (
-          <div className="">
-            <Alert className="py-4">{searchMessage}</Alert>
+          <div className="p-4">
+            <Alert>{searchMessage}</Alert>
           </div>
         )}
       </div>
