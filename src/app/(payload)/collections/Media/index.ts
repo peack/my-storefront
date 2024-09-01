@@ -21,7 +21,8 @@ export const Media: CollectionConfig = {
     },
     resizeOptions: {
       width: 1024,
-      height: 768,
+      height: 1024,
+      fit: 'inside',
     },
   },
 }
