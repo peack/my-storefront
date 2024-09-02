@@ -11,7 +11,6 @@ interface ProductsProps {
 
 export default function Products({ data }: ProductsProps) {
   const [myFavorites, setMyFavorites] = useState<number[]>([])
-
   useEffect(() => {
     async function fetchMyFavorites() {
       await getMyFavorites().then((favorites) => {

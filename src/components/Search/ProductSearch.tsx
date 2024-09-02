@@ -12,8 +12,12 @@ interface ProductSearchProps {
   handleModalToggle: () => void
 }
 
+interface ProductResult extends Product {
+  imageUrl: string
+}
+
 const ProductSearch: React.FC<ProductSearchProps> = ({ handleModalToggle }: ProductSearchProps) => {
-  const [results, setResults] = useState<Product[]>([])
+  const [results, setResults] = useState<ProductResult[]>([])
   const [loading, setLoading] = useState(false)
   const [searchMessage, setSearchMessage] = useState<String | null>(null)
 
@@ -45,7 +49,7 @@ const ProductSearch: React.FC<ProductSearchProps> = ({ handleModalToggle }: Prod
 
     const products = await searchProducts(query)
 
-    setResults(products)
+    setResults(products.map((product) => product as ProductResult))
     setSearchMessage(products.length === 0 ? 'No results found' : null)
     setLoading(false)
     handleInputFocus()
@@ -116,18 +120,18 @@ const ProductSearch: React.FC<ProductSearchProps> = ({ handleModalToggle }: Prod
         <>
           <ul>
             {results.map((product) => {
-              const productImage = (product?.meta?.image as Media) || null
               return (
                 <Link key={product.id} href={`/products/${product.slug}`} onClick={handleBlur}>
-                  <li className="flex flex-nowrap justify-stretch items-center border rounded-md min-w-screen my-2 h-[80px] hover:bg-slate-100">
+                  <li className="flex flex-nowrap items-center border rounded-md min-w-screen my-2 h-[110px] hover:bg-slate-100">
                     <Image
-                      src={productImage?.url ?? '/Image_NA.png'}
+                      src={product.imageUrl || '/Image_NA.png'}
                       alt={product?.title}
-                      width={75}
-                      height={75}
-                      className="rounded-sm p-2"
+                      width={120}
+                      height={120}
+                      className="rounded-xl px-2"
                     />
-                    <h2 className="text-l font-bold">{product?.title}</h2>
+
+                    <h2 className="text-l pl-2 font-bold">{product?.title}</h2>
                   </li>
                 </Link>
               )

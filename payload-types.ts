@@ -116,6 +116,7 @@ export interface Search {
     value: number | Product;
   };
   slug?: string | null;
+  imageUrl?: string | null;
   updatedAt: string;
   createdAt: string;
 }

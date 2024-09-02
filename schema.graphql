@@ -1459,6 +1459,7 @@ type Search {
   priority: Float
   doc(locale: LocaleInputType, fallbackLocale: FallbackLocaleInputType): Search_Doc_Relationship!
   slug: String
+  imageUrl: String
   updatedAt: DateTime
   createdAt: DateTime
 }
@@ -1493,6 +1494,7 @@ input Search_where {
   priority: Search_priority_operator
   doc: Search_doc_Relation
   slug: Search_slug_operator
+  imageUrl: Search_imageUrl_operator
   updatedAt: Search_updatedAt_operator
   createdAt: Search_createdAt_operator
   id: Search_id_operator
@@ -1541,6 +1543,17 @@ input Search_slug_operator {
   exists: Boolean
 }
 
+input Search_imageUrl_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
 input Search_updatedAt_operator {
   equals: DateTime
   not_equals: DateTime
@@ -1578,6 +1591,7 @@ input Search_where_and {
   priority: Search_priority_operator
   doc: Search_doc_Relation
   slug: Search_slug_operator
+  imageUrl: Search_imageUrl_operator
   updatedAt: Search_updatedAt_operator
   createdAt: Search_createdAt_operator
   id: Search_id_operator
@@ -1590,6 +1604,7 @@ input Search_where_or {
   priority: Search_priority_operator
   doc: Search_doc_Relation
   slug: Search_slug_operator
+  imageUrl: Search_imageUrl_operator
   updatedAt: Search_updatedAt_operator
   createdAt: Search_createdAt_operator
   id: Search_id_operator
@@ -1614,6 +1629,7 @@ type SearchDocAccessFields {
   priority: SearchDocAccessFields_priority
   doc: SearchDocAccessFields_doc
   slug: SearchDocAccessFields_slug
+  imageUrl: SearchDocAccessFields_imageUrl
   updatedAt: SearchDocAccessFields_updatedAt
   createdAt: SearchDocAccessFields_createdAt
 }
@@ -1707,6 +1723,29 @@ type SearchDocAccessFields_slug_Update {
 }
 
 type SearchDocAccessFields_slug_Delete {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_imageUrl {
+  create: SearchDocAccessFields_imageUrl_Create
+  read: SearchDocAccessFields_imageUrl_Read
+  update: SearchDocAccessFields_imageUrl_Update
+  delete: SearchDocAccessFields_imageUrl_Delete
+}
+
+type SearchDocAccessFields_imageUrl_Create {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_imageUrl_Read {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_imageUrl_Update {
+  permission: Boolean!
+}
+
+type SearchDocAccessFields_imageUrl_Delete {
   permission: Boolean!
 }
 
@@ -2905,6 +2944,7 @@ type SearchFields {
   priority: SearchFields_priority
   doc: SearchFields_doc
   slug: SearchFields_slug
+  imageUrl: SearchFields_imageUrl
   updatedAt: SearchFields_updatedAt
   createdAt: SearchFields_createdAt
 }
@@ -2998,6 +3038,29 @@ type SearchFields_slug_Update {
 }
 
 type SearchFields_slug_Delete {
+  permission: Boolean!
+}
+
+type SearchFields_imageUrl {
+  create: SearchFields_imageUrl_Create
+  read: SearchFields_imageUrl_Read
+  update: SearchFields_imageUrl_Update
+  delete: SearchFields_imageUrl_Delete
+}
+
+type SearchFields_imageUrl_Create {
+  permission: Boolean!
+}
+
+type SearchFields_imageUrl_Read {
+  permission: Boolean!
+}
+
+type SearchFields_imageUrl_Update {
+  permission: Boolean!
+}
+
+type SearchFields_imageUrl_Delete {
   permission: Boolean!
 }
 
@@ -3380,6 +3443,7 @@ input mutationSearchInput {
   priority: Float
   doc: Search_DocRelationshipInput
   slug: String
+  imageUrl: String
   updatedAt: String
   createdAt: String
 }
@@ -3398,6 +3462,7 @@ input mutationSearchUpdateInput {
   priority: Float
   doc: SearchUpdate_DocRelationshipInput
   slug: String
+  imageUrl: String
   updatedAt: String
   createdAt: String
 }

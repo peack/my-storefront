@@ -58,12 +58,19 @@ export default buildConfig({
             name: 'slug',
             type: 'text',
           },
+          {
+            name: 'imageUrl',
+            type: 'text',
+          },
         ],
       },
       beforeSync: ({ originalDoc, searchDoc }) => {
+        const originalDocMedia = originalDoc?.meta?.image as any
+        const docImage = (originalDocMedia.en?.url || originalDocMedia.fr?.url) as string
         return {
           ...searchDoc,
-          slug: originalDoc.slug, // Add the product ID to the search document
+          slug: originalDoc.slug,
+          imageUrl: docImage ?? null,
         }
       },
     }),
