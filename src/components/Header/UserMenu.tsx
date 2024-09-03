@@ -13,15 +13,16 @@ export function UserMenu() {
 
   return (
     <>
-      <NavigationMenu>
+      <NavigationMenu navigationMenuViewportClassName="right-2 md:right-2 max-w-[120px]">
         <NavigationMenuList>
           <NavigationMenuItem key={user?.name}>
             <NavigationMenuTrigger>
               {user ? user?.name ?? user.email : 'Login'}
             </NavigationMenuTrigger>
             <NavigationMenuContent>
-              <ul className="grid gap-2  p-6 md:w-[120px] ]">
+              <ul className="grid gap-2 p-4 md:w-[120px] ">
                 <HeaderListItem
+                  className="truncate"
                   key={user?.id}
                   title={user?.name ? 'Profile' : 'Login'}
                   href={user ? '/profile' : '/login'}

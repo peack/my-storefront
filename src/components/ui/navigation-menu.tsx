@@ -5,17 +5,25 @@ import { ChevronDown } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 
+interface NavigationMenuProps
+  extends React.ForwardRefExoticComponent<
+    NavigationMenuPrimitive.NavigationMenuProps &
+      React.RefAttributes<HTMLElement> & {
+        navigationMenuViewportClassName?: string
+      }
+  > {}
+
 const NavigationMenu = React.forwardRef<
-  React.ElementRef<typeof NavigationMenuPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Root>
->(({ className, children, ...props }, ref) => (
+  React.ElementRef<NavigationMenuProps>,
+  React.ComponentPropsWithoutRef<NavigationMenuProps>
+>(({ className, navigationMenuViewportClassName, children, ...props }, ref) => (
   <NavigationMenuPrimitive.Root
     ref={ref}
     className={cn('relative z-10 flex max-w-max flex-1 items-center justify-center', className)}
     {...props}
   >
     {children}
-    <NavigationMenuViewport />
+    <NavigationMenuViewport className={cn(navigationMenuViewportClassName)} />
   </NavigationMenuPrimitive.Root>
 ))
 NavigationMenu.displayName = NavigationMenuPrimitive.Root.displayName
