@@ -1,12 +1,14 @@
 'use client'
 import { searchProducts } from '@/components/Search/searchProduct'
 import { Input } from '@/components/ui/input'
-import { Media, Product } from '@/payload-types'
+import { Product } from '@/payload-types'
 import { Alert } from '@components/ui/alert'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Button } from '../ui/button'
+import { Separator } from '../ui/separator'
+import { useRouter } from 'next/navigation'
 
 interface ProductSearchProps {
   handleModalToggle: () => void
@@ -20,10 +22,14 @@ const ProductSearch: React.FC<ProductSearchProps> = ({ handleModalToggle }: Prod
   const [results, setResults] = useState<ProductResult[]>([])
   const [loading, setLoading] = useState(false)
   const [searchMessage, setSearchMessage] = useState<String | null>(null)
+  const [userQuery, setUserQuery] = useState<string | null>(null)
 
   const searchResultsRef = useRef<HTMLDivElement>(null)
   const searchBarRef = useRef<HTMLInputElement>(null)
   const searchBarButtonRef = useRef<HTMLButtonElement>(null)
+  const moreResultsRef = useRef<HTMLDivElement>(null)
+
+  const router = useRouter()
 
   const handleInputFocus = useCallback(() => {
     setTimeout(() => searchBarRef.current?.focus(), 100)
@@ -35,6 +41,7 @@ const ProductSearch: React.FC<ProductSearchProps> = ({ handleModalToggle }: Prod
 
   const handleSearch = async () => {
     const query = searchBarRef.current?.value || ''
+    setUserQuery(query)
 
     setResults([])
     setLoading(true)
@@ -63,7 +70,9 @@ const ProductSearch: React.FC<ProductSearchProps> = ({ handleModalToggle }: Prod
         searchBarRef.current &&
         !searchBarRef.current.contains(event.target as Node) &&
         searchBarButtonRef.current &&
-        !searchBarButtonRef.current.contains(event.target as Node)
+        !searchBarButtonRef.current.contains(event.target as Node) &&
+        moreResultsRef.current &&
+        !moreResultsRef.current.contains(event.target as Node)
       ) {
         handleModalToggle()
       }
@@ -114,8 +123,27 @@ const ProductSearch: React.FC<ProductSearchProps> = ({ handleModalToggle }: Prod
     </>
   )
 
+  const SearchMoreComponent = () => {
+    return (
+      <>
+        <Separator />
+        <div ref={moreResultsRef} className="flex pt-2 py-2">
+          <Button
+            variant={'link'}
+            onClick={() => {
+              router.replace(`search?q=${userQuery}`)
+              handleModalToggle()
+            }}
+          >
+            See all results
+          </Button>
+        </div>
+      </>
+    )
+  }
+
   const SearchResults = () => (
-    <div ref={searchResultsRef} className="overflow-y-clip">
+    <div ref={searchResultsRef} className=" max-h-[40vh] overflow-scroll no-scrollbar">
       {results?.length > 0 && (
         <>
           <ul>
@@ -144,7 +172,7 @@ const ProductSearch: React.FC<ProductSearchProps> = ({ handleModalToggle }: Prod
 
   return (
     <>
-      <div className="absolute mx-auto transform translate-y-[60px] rounded-xl top-1 bg-white left-4 right-2 px-4 border-solid max-w-4xl min-w-[40vh] max-h-[60vh] overflow-scroll no-scrollbar shadow-lg ease-in-out duration-1000 ">
+      <div className="absolute mx-auto transform translate-y-[60px] rounded-xl top-1 bg-white left-4 right-2 px-4 border-solid max-w-4xl min-w-[40vh] max-h-[60vh] shadow-lg ease-in-out duration-1000 ">
         <div className="sticky top-0 bg-white w-full py-2 mt-0  ">
           <SearchBar />
           {results?.length > 0 && (
@@ -154,6 +182,7 @@ const ProductSearch: React.FC<ProductSearchProps> = ({ handleModalToggle }: Prod
           )}
         </div>
         <SearchResults />
+        {results?.length > 5 && <SearchMoreComponent />}
         {results?.length === 0 && !loading && searchMessage && (
           <div className="p-4">
             <Alert>{searchMessage}</Alert>

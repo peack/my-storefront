@@ -10,6 +10,7 @@ export const searchProducts = async (query: string): Promise<Product[]> => {
             like: query,
           },
         },
+        limit: 8,
       },
       { addQueryPrefix: true },
     )
