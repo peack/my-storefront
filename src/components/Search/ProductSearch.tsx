@@ -26,8 +26,7 @@ const ProductSearch: React.FC<ProductSearchProps> = ({ handleModalToggle }: Prod
 
   const searchResultsRef = useRef<HTMLDivElement>(null)
   const searchBarRef = useRef<HTMLInputElement>(null)
-  const searchBarButtonRef = useRef<HTMLButtonElement>(null)
-  const moreResultsRef = useRef<HTMLDivElement>(null)
+  const searchComponentRef = useRef<HTMLDivElement>(null)
 
   const router = useRouter()
 
@@ -65,14 +64,8 @@ const ProductSearch: React.FC<ProductSearchProps> = ({ handleModalToggle }: Prod
   const handleClickOutside = useCallback(
     async (event: MouseEvent) => {
       if (
-        searchResultsRef.current &&
-        !searchResultsRef.current.contains(event.target as Node) &&
-        searchBarRef.current &&
-        !searchBarRef.current.contains(event.target as Node) &&
-        searchBarButtonRef.current &&
-        !searchBarButtonRef.current.contains(event.target as Node) &&
-        moreResultsRef.current &&
-        !moreResultsRef.current.contains(event.target as Node)
+        searchComponentRef.current &&
+        !searchComponentRef.current.contains(event.target as Node)
       ) {
         handleModalToggle()
       }
@@ -111,14 +104,11 @@ const ProductSearch: React.FC<ProductSearchProps> = ({ handleModalToggle }: Prod
             type="text"
             placeholder="Search for products..."
             className="w-full p-2 border rounded"
-            // onBlur={handleBlur}
             onFocus={handleInputFocus}
             onKeyDown={handleKeyDown}
           />
         </div>
-        <Button ref={searchBarButtonRef} onClick={handleSearchClick}>
-          Search
-        </Button>
+        <Button onClick={handleSearchClick}>Search</Button>
       </div>
     </>
   )
@@ -127,7 +117,7 @@ const ProductSearch: React.FC<ProductSearchProps> = ({ handleModalToggle }: Prod
     return (
       <>
         <Separator />
-        <div ref={moreResultsRef} className="flex pt-2 py-2">
+        <div className="flex pt-2 py-2">
           <Button
             variant={'link'}
             onClick={() => {
@@ -172,7 +162,10 @@ const ProductSearch: React.FC<ProductSearchProps> = ({ handleModalToggle }: Prod
 
   return (
     <>
-      <div className="absolute mx-auto transform translate-y-[60px] rounded-xl top-1 bg-white left-4 right-2 px-4 border-solid max-w-4xl min-w-[40vh] max-h-[60vh] shadow-lg ease-in-out duration-1000 ">
+      <div
+        ref={searchComponentRef}
+        className="absolute mx-auto transform translate-y-[60px] rounded-xl top-1 bg-white left-4 right-2 px-4 border-solid max-w-4xl min-w-[40vh] max-h-[60vh] shadow-lg ease-in-out duration-1000 "
+      >
         <div className="sticky top-0 bg-white w-full py-2 mt-0  ">
           <SearchBar />
           {results?.length > 0 && (
