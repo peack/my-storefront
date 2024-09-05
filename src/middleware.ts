@@ -14,7 +14,7 @@ export const config = {
     '/',
     '/products/:path*',
     '/login',
-    '/mysearch',
+    '/search',
     '/signup',
     '/profile',
     '/logout',

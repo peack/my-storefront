@@ -9,7 +9,7 @@ import { StarIcon } from 'lucide-react'
 
 interface ProductCardProps {
   product: Product
-  isFavorite: boolean
+  isFavorite?: boolean
   toggleFavorite?: (product: Product, isFavorite: boolean) => void
 }
 
@@ -20,7 +20,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 }) => {
   const productMedia = (product?.meta?.image as Media) || null
   const iconClass = isFavorite ? 'fill-yellow-400 text-yellow-400' : 'text-gray-400'
-  const status = useAuth().status
+  const status = useAuth().status ?? 'loggedOut'
   return (
     <Card className="  w-[160px] md:w-[300px] m-1" key={product.slug}>
       <Link key={product.slug} href={`/products/${product.slug}`}>
