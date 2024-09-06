@@ -1,12 +1,33 @@
 {
+  "version": "0.2.0",
   "configurations": [
     {
-      "command": "pnpm run dev",
-      "cwd": "${workspaceFolder}",
-      "name": "Run Dev (pnpm)",
+      "type": "chrome",
       "request": "launch",
-      "type": "node-terminal"
+      "name": "Launch my cool app",
+      "url": "http://localhost:3000"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Program",
+      "env": {
+        "PAYLOAD_CONFIG_PATH": "src/payload.config.ts",
+      },
+      "program": "${workspaceFolder}/src/server.ts",
+    },
+    {
+      "name": "Debug Jest Tests",
+      "type": "node",
+      "request": "launch",
+      "runtimeArgs": [
+        "--inspect-brk",
+        "${workspaceRoot}/node_modules/.bin/jest",
+        "--runInBand"
+      ],
+      "env": {
+        "PAYLOAD_CONFIG_PATH": "src/payload.config.ts"
+      },
     }
-  ],
-  "version": "0.2.0"
+  ]
 }

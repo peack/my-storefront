@@ -113,25 +113,6 @@ const ProductSearch: React.FC<ProductSearchProps> = ({ handleModalToggle }: Prod
     </>
   )
 
-  const SearchMoreComponent = () => {
-    return (
-      <>
-        <Separator />
-        <div className="flex pt-2 py-2">
-          <Button
-            variant={'link'}
-            onClick={() => {
-              router.replace(`search?q=${userQuery}`)
-              handleModalToggle()
-            }}
-          >
-            See all results
-          </Button>
-        </div>
-      </>
-    )
-  }
-
   const SearchResults = () => (
     <div ref={searchResultsRef} className=" max-h-[40vh] overflow-scroll no-scrollbar">
       {results?.length > 0 && (
@@ -159,6 +140,25 @@ const ProductSearch: React.FC<ProductSearchProps> = ({ handleModalToggle }: Prod
       )}
     </div>
   )
+
+  const SearchMoreComponent = () => {
+    return (
+      <>
+        <Separator />
+        <div className="flex pt-2 py-2">
+          <Button
+            variant={'link'}
+            onClick={() => {
+              router.push(`/search?q=${userQuery}`)
+              handleModalToggle()
+            }}
+          >
+            See all results
+          </Button>
+        </div>
+      </>
+    )
+  }
 
   return (
     <>
