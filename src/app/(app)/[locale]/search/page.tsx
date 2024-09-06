@@ -13,10 +13,7 @@ interface SearchProps {
 }
 
 export default async function page({ params, searchParams }: SearchProps) {
-  console.log(searchParams.q)
-  const userQ = searchParams.q
-  // const jsonQuery = JSON.parse(searchParams.q)
-  // console.log(`queyr:`, jsonQuery)
+  const userQuery = searchParams.q
 
   const ids = await payload
     .find({
@@ -25,7 +22,7 @@ export default async function page({ params, searchParams }: SearchProps) {
       depth: 2,
       where: {
         title: {
-          like: userQ,
+          like: userQuery,
         },
       },
     })
@@ -36,12 +33,15 @@ export default async function page({ params, searchParams }: SearchProps) {
       return prods
     })
 
-  // const data = async () => {
   const fetchData = async (ids: string[]) => {
     const products = await Promise.all(
       ids.map(async (id) => {
         try {
-          return await payload.findByID({ collection: 'products', id })
+          return await payload.findByID({
+            collection: 'products',
+            id,
+            locale: (params.locale as 'en' | 'fr' | 'all') ?? 'fr',
+          })
         } catch (error) {
           console.error(`Error fetching product with id: ${id}`, error)
           return null
@@ -54,7 +54,7 @@ export default async function page({ params, searchParams }: SearchProps) {
 
   return (
     <>
-      <div className="text-3xl py-2 pb-4">Showing search results for: {userQ} </div>
+      <div className="text-3xl py-2 pb-4">Showing search results for: {userQuery} </div>
       <Suspense fallback={<div>Loading...</div>}>
         <SearchWrapper products={data as Product[]} />
       </Suspense>
