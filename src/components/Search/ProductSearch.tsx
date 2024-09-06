@@ -1,14 +1,15 @@
 'use client'
 import { searchProducts } from '@/components/Search/searchProduct'
+import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import Loading from '@/components/ui/Loading'
 import { Product } from '@/payload-types'
 import { Alert } from '@components/ui/alert'
+import { Separator } from '@components/ui/separator'
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { Button } from '../ui/button'
-import { Separator } from '../ui/separator'
 import { useRouter } from 'next/navigation'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 
 interface ProductSearchProps {
   handleModalToggle: () => void
@@ -20,7 +21,7 @@ interface ProductResult extends Product {
 
 const ProductSearch: React.FC<ProductSearchProps> = ({ handleModalToggle }: ProductSearchProps) => {
   const [results, setResults] = useState<ProductResult[]>([])
-  const [loading, setLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [searchMessage, setSearchMessage] = useState<String | null>(null)
   const [userQuery, setUserQuery] = useState<string | null>(null)
 
@@ -43,11 +44,11 @@ const ProductSearch: React.FC<ProductSearchProps> = ({ handleModalToggle }: Prod
     setUserQuery(query)
 
     setResults([])
-    setLoading(true)
+    setIsLoading(true)
     setSearchMessage(null)
 
     if (query.length === 0 || query.length < 3) {
-      setLoading(false)
+      setIsLoading(false)
       setSearchMessage(query.length === 0 ? null : 'Search term must be at least 3 characters long')
       handleInputFocus()
       return
@@ -57,7 +58,7 @@ const ProductSearch: React.FC<ProductSearchProps> = ({ handleModalToggle }: Prod
 
     setResults(products.map((product) => product as ProductResult))
     setSearchMessage(products.length === 0 ? 'No results found' : null)
-    setLoading(false)
+    setIsLoading(false)
     handleInputFocus()
   }
 
@@ -106,16 +107,25 @@ const ProductSearch: React.FC<ProductSearchProps> = ({ handleModalToggle }: Prod
             className="w-full p-2 border rounded"
             onFocus={handleInputFocus}
             onKeyDown={handleKeyDown}
+            disabled={isLoading}
           />
         </div>
-        <Button onClick={handleSearchClick}>Search</Button>
+        <Button
+          disabled={isLoading}
+          onClick={() => {
+            setIsLoading(true)
+            setTimeout(() => handleSearchClick(), 2000)
+          }}
+        >
+          Search
+        </Button>
       </div>
     </>
   )
 
   const SearchResults = () => (
     <div ref={searchResultsRef} className=" max-h-[40vh] overflow-scroll no-scrollbar">
-      {results?.length > 0 && (
+      {results?.length > 0 && !isLoading && (
         <>
           <ul>
             {results.map((product) => {
@@ -138,24 +148,33 @@ const ProductSearch: React.FC<ProductSearchProps> = ({ handleModalToggle }: Prod
           </ul>
         </>
       )}
+      {isLoading && (
+        <div className="flex justify-center items-center p-4">
+          <Loading height={50} width={50} />
+        </div>
+      )}
     </div>
   )
 
   const SearchMoreComponent = () => {
     return (
       <>
-        <Separator />
-        <div className="flex pt-2 py-2">
-          <Button
-            variant={'link'}
-            onClick={() => {
-              router.push(`/search?q=${userQuery}`)
-              handleModalToggle()
-            }}
-          >
-            See all results
-          </Button>
-        </div>
+        {!isLoading && (
+          <>
+            <Separator />
+            <div className="flex pt-2 py-2">
+              <Button
+                variant={'link'}
+                onClick={() => {
+                  router.push(`/search?q=${userQuery}`)
+                  handleModalToggle()
+                }}
+              >
+                See all results
+              </Button>
+            </div>
+          </>
+        )}
       </>
     )
   }
@@ -176,7 +195,7 @@ const ProductSearch: React.FC<ProductSearchProps> = ({ handleModalToggle }: Prod
         </div>
         <SearchResults />
         {results?.length > 5 && <SearchMoreComponent />}
-        {results?.length === 0 && !loading && searchMessage && (
+        {results?.length === 0 && !isLoading && searchMessage && (
           <div className="p-4">
             <Alert>{searchMessage}</Alert>
           </div>
