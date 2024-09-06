@@ -131,15 +131,15 @@ const ProductSearch: React.FC<ProductSearchProps> = ({ handleModalToggle }: Prod
             {results.map((product) => {
               return (
                 <Link key={product.id} href={`/products/${product.slug}`} onClick={handleBlur}>
-                  <li className="flex flex-nowrap items-center border rounded-md min-w-screen my-2 h-[110px] hover:bg-slate-100">
+                  <li className="flex flex-nowrap items-center border rounded-md min-w-screen my-2 h-[120px] hover:bg-slate-100">
                     <Image
                       src={product.imageUrl || '/Image_NA.png'}
                       alt={product?.title}
-                      width={120}
-                      height={120}
-                      className="rounded-xl px-2"
+                      width={100}
+                      height={110}
+                      className="rounded-xl px-2 max-h-[110px]"
+                      style={{ objectFit: 'cover' }}
                     />
-
                     <h2 className="text-l pl-2 font-bold">{product?.title}</h2>
                   </li>
                 </Link>
