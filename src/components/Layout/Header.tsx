@@ -42,8 +42,8 @@ const Header: React.FC<HeaderProps> = ({ navLinks }) => {
     >
       <div className="max-w-screen mx-auto">
         <div
-          className={`container max-w-[100vw] mx-auto sm:px-8 flex justify-between items-center shadow bg-white py-1 ${
-            isScrolled ? 'max-w-4xl rounded-xl m-1 ' : ''
+          className={`container max-w-[100vw] mx-auto  flex justify-between items-center shadow bg-white py-2 ${
+            isScrolled ? 'max-w-4xl rounded-xl m-1 px-2 ' : ' px-2 sm:px-8 max-w-5xl'
           } `}
         >
           <NavigationMenu>

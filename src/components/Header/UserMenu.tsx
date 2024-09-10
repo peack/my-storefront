@@ -7,6 +7,7 @@ import {
 } from '@components/ui/navigation-menu'
 import { HeaderListItem } from '@/components/Header/HeaderListItem'
 import { useAuth } from '@/providers/Auth'
+import { CircleUserRound, UserRound, UserRoundCheck } from 'lucide-react'
 
 export function UserMenu() {
   const { user } = useAuth()
@@ -17,7 +18,7 @@ export function UserMenu() {
         <NavigationMenuList>
           <NavigationMenuItem key={user?.name}>
             <NavigationMenuTrigger>
-              {user ? user?.name ?? user.email : 'Login'}
+              {user ? <UserRoundCheck /> : <UserRound />}
             </NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid gap-2 p-4 md:w-[120px] ">

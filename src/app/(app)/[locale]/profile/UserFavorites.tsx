@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Media, Product } from '@/payload-types'
-import { Card, CardContent } from '@/components/ui/card'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import Image from 'next/image'
 import Link from 'next/link'
 import {
@@ -32,12 +32,15 @@ export default function UserFavorites() {
             User Favorites
           </h2>
           {userFavorites.length > 4 ? (
-            <div className="flex justify-start px-10">
-              <Carousel className="w-[400px]">
+            <div className="flex justify-start md:justify-center px-10">
+              <Carousel className="w-full px-10">
                 <CarouselContent>
                   {userFavorites.map((favorite) => {
                     return (
-                      <CarouselItem className="basis-1/3 md:basis-1/3" key={favorite.slug}>
+                      <CarouselItem
+                        className="basis-1/3 sm:basis-1/4 md:basis-1/4"
+                        key={favorite.slug}
+                      >
                         {userFavoriteCard(favorite)}
                       </CarouselItem>
                     )
@@ -65,18 +68,24 @@ export default function UserFavorites() {
 function userFavoriteCard(favorite: Product) {
   const favoriteMedia: Media = (favorite.meta?.image as Media) || null
   return (
-    <Card key={favorite.id} className="w-[100px] md:w-[120px]">
-      <CardContent className="p[-10px]">
-        <Link href={`/products/${favorite.slug}`}>
-          <Image
-            src={favoriteMedia?.url ?? '/Image_NA.png'}
-            alt={favoriteMedia?.alt ?? `Image of ${favorite.meta?.title ?? 'No image found'}`}
-            width={90}
-            height={70}
-            className="rounded-md "
-          />
-        </Link>
-      </CardContent>
+    <Card key={favorite.id} className=" min-w-[110px]">
+      <CardHeader>
+        {/* <CardContent className="flex justify-center"> */}
+        <div className="flex">
+          <Link href={`/products/${favorite.slug}`}>
+            <Image
+              src={favoriteMedia?.url ?? '/Image_NA.png'}
+              alt={favoriteMedia?.alt ?? `Image of ${favorite.meta?.title ?? 'No image found'}`}
+              width={100}
+              height={150}
+              style={{ objectFit: 'fill' }}
+              className="rounded-md "
+            />
+          </Link>
+        </div>
+
+        {/* </CardContent> */}
+      </CardHeader>
     </Card>
   )
 }

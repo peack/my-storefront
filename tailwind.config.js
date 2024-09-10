@@ -93,6 +93,6 @@ module.exports = {
         display: 'none',
       },
     });
-  }
+  },
   ],
 }

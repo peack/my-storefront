@@ -1,8 +1,7 @@
 'use client'
 import { searchProducts } from '@/components/Search/searchProduct'
-import { Button } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import Loading from '@/components/ui/Loading'
 import { Product } from '@/payload-types'
 import { Alert } from '@components/ui/alert'
 import { Separator } from '@components/ui/separator'
@@ -10,6 +9,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
+import SearchSkeleton from './SearchSkeleton'
 
 interface ProductSearchProps {
   handleModalToggle: () => void
@@ -110,13 +110,7 @@ const ProductSearch: React.FC<ProductSearchProps> = ({ handleModalToggle }: Prod
             disabled={isLoading}
           />
         </div>
-        <Button
-          disabled={isLoading}
-          onClick={() => {
-            setIsLoading(true)
-            setTimeout(() => handleSearchClick(), 2000)
-          }}
-        >
+        <Button disabled={isLoading} onClick={handleSearchClick}>
           Search
         </Button>
       </div>
@@ -124,7 +118,7 @@ const ProductSearch: React.FC<ProductSearchProps> = ({ handleModalToggle }: Prod
   )
 
   const SearchResults = () => (
-    <div ref={searchResultsRef} className=" max-h-[40vh] overflow-scroll no-scrollbar">
+    <div ref={searchResultsRef} className="max-h-[35vh] overflow-scroll no-scrollbar flex-shrink-2">
       {results?.length > 0 && !isLoading && (
         <>
           <ul>
@@ -150,7 +144,7 @@ const ProductSearch: React.FC<ProductSearchProps> = ({ handleModalToggle }: Prod
       )}
       {isLoading && (
         <div className="flex justify-center items-center p-4">
-          <Loading height={50} width={50} />
+          <SearchSkeleton />
         </div>
       )}
     </div>
@@ -162,16 +156,10 @@ const ProductSearch: React.FC<ProductSearchProps> = ({ handleModalToggle }: Prod
         {!isLoading && (
           <>
             <Separator />
-            <div className="flex pt-2 py-2">
-              <Button
-                variant={'link'}
-                onClick={() => {
-                  router.push(`/search?q=${userQuery}`)
-                  handleModalToggle()
-                }}
-              >
+            <div className="flex pt-2 py-2 flex-shrink-0">
+              <Link className={buttonVariants({ variant: 'link' })} href={`/search?q=${userQuery}`}>
                 See all results
-              </Button>
+              </Link>
             </div>
           </>
         )}
@@ -183,7 +171,7 @@ const ProductSearch: React.FC<ProductSearchProps> = ({ handleModalToggle }: Prod
     <>
       <div
         ref={searchComponentRef}
-        className="absolute mx-auto transform translate-y-[60px] rounded-xl top-1 bg-white left-4 right-2 px-4 border-solid max-w-4xl min-w-[40vh] max-h-[60vh] shadow-lg ease-in-out duration-1000 "
+        className="absolute mx-auto transform translate-y-[68px] rounded-xl top-1 bg-white left-4 right-2 px-4 border-solid max-w-4xl min-w-[40vh] max-h-[60vh] shadow-lg ease-in-out duration-1000 flex-col"
       >
         <div className="sticky top-0 bg-white w-full py-2 mt-0  ">
           <SearchBar />
