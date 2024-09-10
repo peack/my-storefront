@@ -24,13 +24,8 @@ export default async function page({ params: { locale } }: { params: { locale: s
   return (
     <div>
       <h1 className="py-6 text-4xl">Products</h1>
-<<<<<<< HEAD
       <div className="flex flex-wrap justify-center lg:justify-start gap-1 ">
         <Suspense fallback={<Skeleton />}>
-=======
-      <Suspense fallback={<div>Loading...</div>}>
-        <div className="flex flex-wrap justify-center md:justify-start gap-1">
->>>>>>> fix/no-product
           <Products data={data} />
         </Suspense>
       </div>
