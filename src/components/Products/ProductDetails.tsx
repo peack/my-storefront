@@ -9,13 +9,16 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from '@components/ui/carousel'
+import FavoriteStarButton from '@components/Buttons/FavoriteStarButton'
 import { Button } from '../ui/button'
 
 interface ProductDetailsProps {
   product: Product
+  isFavorite?: boolean
+  toggleFavorite?: (product: Product, isFavorite: boolean) => void
 }
 
-const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
+const ProductDetails: React.FC<ProductDetailsProps> = ({ product, isFavorite, toggleFavorite }) => {
   const productMedia = (product?.meta?.image as Media) || null
   const relatedProducts = product?.relatedProducts || []
   return (
@@ -35,7 +38,13 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
             />
           </div>
           <div className="flex justify-end md:justify-end pt-1">
-            <Button>Add to favorites</Button>
+            <div className="py-2">
+              <FavoriteStarButton
+                product={product}
+                isFavorite={isFavorite}
+                toggleFavorite={toggleFavorite}
+              />
+            </div>
           </div>
         </div>
 
