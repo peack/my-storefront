@@ -1,7 +1,6 @@
-import ProductDetails from '@/components/Products/ProductDetails'
 import { getPayloadHMR } from '@payloadcms/next/utilities'
-import React, { Suspense } from 'react'
 import configPromise from '@payload-config'
+import ProductDetailsWrapper from './ProductDetailsWrapper'
 const payload = await getPayloadHMR({ config: configPromise })
 
 interface ProductDetailsSlugProps {
@@ -22,5 +21,5 @@ export default async function ProductDetailsSlug({ productSlug, locale }: Produc
 
   const product = data.docs[0] ?? null
 
-  return <ProductDetails key={product?.id} product={product} />
+  return <ProductDetailsWrapper product={product} />
 }

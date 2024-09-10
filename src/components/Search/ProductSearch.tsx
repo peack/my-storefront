@@ -171,7 +171,7 @@ const ProductSearch: React.FC<ProductSearchProps> = ({ handleModalToggle }: Prod
     <>
       <div
         ref={searchComponentRef}
-        className="absolute mx-auto transform translate-y-[68px] rounded-xl top-1 bg-white left-4 right-2 px-4 border-solid max-w-4xl min-w-[40vh] max-h-[60vh] shadow-lg ease-in-out duration-1000 flex-col"
+        className="absolute mx-auto transform translate-y-[60px] rounded-xl top-1 bg-white left-4 right-2 px-4 border-solid max-w-4xl min-w-[40vh] max-h-[60vh] shadow-lg ease-in-out duration-1000 "
       >
         <div className="sticky top-0 bg-white w-full py-2 mt-0  ">
           <SearchBar />
