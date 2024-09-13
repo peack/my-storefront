@@ -36,8 +36,8 @@ export default buildConfig({
     },
   }),
   email: resendAdapter({
-    defaultFromAddress: 'mike@mikega.xyz',
-    defaultFromName: 'Mike',
+    defaultFromAddress: 'no-reply@mikega.xyz',
+    defaultFromName: 'Mike-ecom No Reply',
     apiKey: process.env.RESEND_API_KEY || '',
   }),
   plugins: [

@@ -26,5 +26,6 @@ export const config = {
     '/favicon.ico',
     '/verify/:token*',
     '/forgot',
+    '/reset/:token*',
   ],
 }

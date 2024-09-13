@@ -67,7 +67,7 @@ export default function ForgotPasswordForm() {
 
   return (
     <>
-      <div className="flex w-screen,  min-h-[60dvh]">
+      <div className="flex w-screen,  min-h-[60dvh] p-2">
         <div className="flex w-screen mx-auto max-w-sm justify-center items-center align-middle">
           <div className="flex-col">
             <div className="flex-col">

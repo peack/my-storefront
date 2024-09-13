@@ -1,15 +1,9 @@
 'use client'
+import { Status } from '@myTypes/myTypes'
 import Loading from '@/components/ui/Loading'
 import { toast } from '@/components/ui/use-toast'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
-
-enum Status {
-  IDLE = 'idle',
-  SUCCESS = 'success',
-  ERROR = 'error',
-  LOADING = 'loading',
-}
 
 export default function Verify({ token }: { token: string }) {
   const router = useRouter()

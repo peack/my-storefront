@@ -18,6 +18,28 @@ export const Users: CollectionConfig = {
         }
       },
     },
+    forgotPassword: {
+      generateEmailSubject(args) {
+        return `${args?.user?.name ?? args?.user?.email} - Reset Password`
+      },
+      generateEmailHTML(args) {
+        const resetPasswordURL = `${process.env.NEXT_PUBLIC_SERVER_URL}/reset?token=${args?.token}`
+        return `
+                <!doctype html>
+                <html>
+                  <body>
+                    <h1>Reset your password</h1>
+                    <p>Hello, ${args?.user?.email}!</p>
+                    <p>Click below to reset your password.</p>
+                    <p>
+                      <a href="${resetPasswordURL}">${resetPasswordURL}</a>
+                    </p>
+                    <p>If you did not request a password reset, please ignore this email.</p>
+                  </body>
+                </html>
+              `
+      },
+    },
   },
   admin: {
     useAsTitle: 'email',

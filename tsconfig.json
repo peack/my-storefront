@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -18,14 +22,36 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*", "./*"],
-      "@components/*": ["./src/components/*"],
-      "@payload-config": ["./payload.config.ts"],
-      "@collections/*": ["./src/app/(payload)/collections/*"],
-      "@hooks/*": ["./src/hooks/*"]
+      "@/*": [
+        "./src/*",
+        "./*"
+      ],
+      "@components/*": [
+        "./src/components/*"
+      ],
+      "@payload-config": [
+        "./payload.config.ts"
+      ],
+      "@collections/*": [
+        "./src/app/(payload)/collections/*"
+      ],
+      "@hooks/*": [
+        "./src/hooks/*"
+      ],
+      "@myTypes/*": [
+        "./src/app/types/myTypes.ts"
+      ]
     },
     "target": "ES2017"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/(payload)/admin/importMap.js"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/app/(payload)/admin/importMap.js"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
