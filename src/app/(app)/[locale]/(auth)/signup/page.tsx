@@ -1,7 +1,7 @@
 'use client'
 
 import { Alert, AlertDescription } from '@/components/ui/alert'
-import { Button } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import {
   Card,
   CardContent,
@@ -22,6 +22,7 @@ import { Input } from '@/components/ui/input'
 import Loading from '@/components/ui/Loading'
 import { toast } from '@/components/ui/use-toast'
 import { zodResolver } from '@hookform/resolvers/zod'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useCallback, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -151,9 +152,9 @@ export default function SignUpForm() {
         <CardFooter className="flex justify-center">
           <p className="text-sm text-gray-600">
             Already have an account?
-            <a href="/login" className="text-blue-600 hover:underline">
+            <Link className={buttonVariants({ variant: 'link' }) + ' -mx-3'} href="/login">
               {` Login`}
-            </a>
+            </Link>
           </p>
         </CardFooter>
       </Card>

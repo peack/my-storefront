@@ -16,6 +16,7 @@
     "login_form_button_label": "Login",
     "login_form_error": "An error occurred while logging in. Please try again.",
     "login_form_card_footer_link_description": "Don't have an account?",
-    "login_form_card_footer_link_label": "Sign up here"
+    "login_form_card_footer_link_label": "Sign up here",
+    "login_card_forgot_password":"Forgot Password ?"
   }
 }

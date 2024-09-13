@@ -16,6 +16,7 @@
     "login_form_button_label": "Se connecter",
     "login_form_error": "Une erreur s'est produite lors de la connexion. Veuillez réessayer.",
     "login_form_card_footer_link_description": "Vous n'avez pas de compte ?",
-    "login_form_card_footer_link_label": "Inscrivez-vous ici"
+    "login_form_card_footer_link_label": "Inscrivez-vous ici",
+    "login_card_forgot_password":"Mot de passe oublié ?"
   }
 }

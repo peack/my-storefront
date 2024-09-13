@@ -1,7 +1,7 @@
 'use client'
 
 import { Alert, AlertDescription } from '@/components/ui/alert'
-import { Button } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import {
   Card,
   CardContent,
@@ -23,8 +23,8 @@ import Loading from '@/components/ui/Loading'
 import { toast } from '@/components/ui/use-toast'
 import { useAuth } from '@/providers/Auth'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { ToastProps, ToastTitleProps } from '@radix-ui/react-toast'
 import { useTranslations } from 'next-intl'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -139,13 +139,17 @@ export default function MyLogin() {
               )}
             </form>
           </Form>
+          <Link className={buttonVariants({ variant: 'link' }) + ' -mx-3'} href={`/forgot`}>
+            {t('login_card_forgot_password')}
+          </Link>
         </CardContent>
         <CardFooter className="flex justify-center">
           <p className="text-sm text-gray-600">
             {t('login_form_card_footer_link_description')}
-            <a href="/signup" className="text-blue-600 hover:underline">
+            <Link className={buttonVariants({ variant: 'link' }) + ' -mx-3'} href="/signup">
+              {' '}
               {t('login_form_card_footer_link_label')}
-            </a>
+            </Link>
           </p>
         </CardFooter>
       </Card>
