@@ -21,7 +21,6 @@ import {
 import { Input } from '@/components/ui/input'
 import Loading from '@/components/ui/Loading'
 import { toast } from '@/components/ui/use-toast'
-import { useAuth } from '@/providers/Auth'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import { useCallback, useState } from 'react'
@@ -42,7 +41,6 @@ export default function SignUpForm() {
   const [error, setError] = useState<string | null>(null)
   const [formMessage, setFormMessage] = useState<null | string>(null)
   const [isLoading, setIsLoading] = useState(false)
-  const { login, user, setUser } = useAuth()
   const router = useRouter()
 
   const form = useForm({
@@ -73,20 +71,14 @@ export default function SignUpForm() {
         setIsLoading(false)
         return
       }
-
-      try {
-        await login({ email: values.email, password: values.password })
-        setTimeout(() => setIsLoading(false), 500)
-        setTimeout(() => router.push('/'), 2000)
-        toast({
-          title: 'Account created successfully',
-        })
-      } catch (_) {
-        setError('There was an error with the credentials provided. Please try again.')
-        setTimeout(() => setIsLoading(false), 500)
-      }
+      toast({
+        title: 'Account created. Please verify your email to login',
+      })
+      setTimeout(() => {
+        router.push('/login')
+      }, 800)
     },
-    [login, router],
+    [router],
   )
 
   return (

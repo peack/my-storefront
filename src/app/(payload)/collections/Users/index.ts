@@ -7,7 +7,18 @@ import { User } from '@/payload-types'
 
 export const Users: CollectionConfig = {
   slug: 'users',
-  auth: true,
+  auth: {
+    verify: {
+      generateEmailHTML: ({ req, token, user }) => {
+        const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/verify?token=${token}`
+        if (req.locale === 'fr') {
+          return `Bonjour ${user.email}, veuillez cliquer sur ce lien pour valider votre compte: ${url}`
+        } else {
+          return `Hey ${user.email}, verify your email by clicking here: ${url}`
+        }
+      },
+    },
+  },
   admin: {
     useAsTitle: 'email',
   },

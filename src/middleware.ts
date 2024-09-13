@@ -24,5 +24,6 @@ export const config = {
     '/(en|fr)/products',
     '/(en|fr)/login',
     '/favicon.ico',
+    '/verify/:token*',
   ],
 }

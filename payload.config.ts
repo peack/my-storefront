@@ -12,6 +12,7 @@ import sharp from 'sharp'
 import { fileURLToPath } from 'url'
 import { en } from '@payloadcms/translations/languages/en'
 import { fr } from '@payloadcms/translations/languages/fr'
+import { resendAdapter } from '@payloadcms/email-resend'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -34,6 +35,11 @@ export default buildConfig({
       connectionString: process.env.POSTGRES_URI || '',
     },
   }),
+  email: resendAdapter({
+    defaultFromAddress: 'mike@mikega.xyz',
+    defaultFromName: 'Mike',
+    apiKey: process.env.RESEND_API_KEY || '',
+  }),
   plugins: [
     seoPlugin({
       collections: ['products'],
@@ -52,7 +58,7 @@ export default buildConfig({
       },
       searchOverrides: {
         slug: 'search',
-        fields: ({ defaultFields }) => [
+        fields: ({ defaultFields }: { defaultFields: any[] }) => [
           ...defaultFields,
           {
             name: 'slug',
@@ -64,7 +70,7 @@ export default buildConfig({
           },
         ],
       },
-      beforeSync: ({ originalDoc, searchDoc }) => {
+      beforeSync: ({ originalDoc, searchDoc }: { originalDoc: any; searchDoc: any }) => {
         const originalDocMedia = originalDoc?.meta?.image as any
         const docImage = (originalDocMedia.en?.url || originalDocMedia.fr?.url) as string
         return {
