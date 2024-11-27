@@ -1,6 +1,6 @@
 "use strict";
 var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
+    __assign = Object.assign || function (t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
             s = arguments[i];
             for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
@@ -75,8 +75,9 @@ exports.default = (0, config_1.buildConfig)({
     graphQL: {
         schemaOutputFile: path_1.default.resolve(__dirname, 'generated-schema.graphql'),
     },
-    cors: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
-    csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
+    cors: [process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://88.170.7.245:50505' || ''].filter(Boolean),
+    csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://88.170.7.245:50505' || ''].filter(Boolean),
+    // csrf: [process.env.PAYLOAD_PUBLIC_SERVER_URL || ''].filter(Boolean),
     endpoints: [
         // The seed endpoint is used to populate the database with some example data
         // You should delete this endpoint before deploying your site to production
