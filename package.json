@@ -29,7 +29,6 @@
     "@payloadcms/plugin-seo": "beta",
     "@payloadcms/richtext-lexical": "beta",
     "@payloadcms/richtext-slate": "beta",
-    "@payloadcms/storage-vercel-blob": "beta",
     "@payloadcms/translations": "beta",
     "@payloadcms/ui": "beta",
     "@radix-ui/react-accordion": "^1.2.0",

@@ -6,7 +6,6 @@ import { Users } from '@collections/Users'
 import { searchPlugin } from '@payloadcms/plugin-search'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
-import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { buildConfig } from 'payload'
 import sharp from 'sharp'
 import { fileURLToPath } from 'url'
@@ -44,12 +43,6 @@ export default buildConfig({
     seoPlugin({
       collections: ['products'],
       uploadsCollection: 'media',
-    }),
-    vercelBlobStorage({
-      collections: {
-        [Media.slug]: true,
-      },
-      token: process.env.READ_WRITE_TOKEN || '',
     }),
     searchPlugin({
       collections: ['products'],
